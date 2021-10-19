@@ -3,10 +3,20 @@
 //
 
 #include <iostream>
-#include "Core/Utils/test.h"
+#include <memory>
+#include "Core/Application.h"
+
+class MyApp : public JediEngine::Application {
+public:
+    void on_update() override {
+        std::cout << "Update frame: " << frame++ << std::endl;
+    }
+
+private:
+    int frame = 0;
+};
 
 int main() {
-    std::cout << "Hello from JediEngine Editor" << std::endl;
-    JediEngine::sayHello();
-    JediEngine::createWindow();
+    auto myApp = std::make_unique<MyApp>();
+    return myApp->start(1024, 768, "My first App");
 }

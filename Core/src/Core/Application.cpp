@@ -2,17 +2,20 @@
 // Created by jeditux on 19.10.2021.
 //
 
-#include <iostream>
+#include "Core/Application.h"
 #include <GLFW/glfw3.h>
-#include "Core/Utils/test.h"
 
 namespace JediEngine {
 
-    void sayHello() {
-        std::cout << "Hello from JediEngine Core" << std::endl;
+    Application::Application() {
+
     }
 
-    int createWindow() {
+    Application::~Application() {
+
+    }
+
+    int Application::start(unsigned int window_width, unsigned int window_height, const char *title) {
         GLFWwindow* window;
 
         /* Initialize the library */
@@ -20,7 +23,7 @@ namespace JediEngine {
             return -1;
 
         /* Create a windowed mode window and its OpenGL context */
-        window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+        window = glfwCreateWindow(window_width, window_height, title, NULL, NULL);
         if (!window)
         {
             glfwTerminate();
@@ -41,10 +44,11 @@ namespace JediEngine {
 
             /* Poll for and process events */
             glfwPollEvents();
+
+            on_update();
         }
 
         glfwTerminate();
         return 0;
     }
-
 }
