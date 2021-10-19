@@ -9,7 +9,7 @@
 class MyApp : public JediEngine::Application {
 public:
     void on_update() override {
-        std::cout << "Update frame: " << frame++ << std::endl;
+//        std::cout << "Update frame: " << frame++ << std::endl;
     }
 
 private:
