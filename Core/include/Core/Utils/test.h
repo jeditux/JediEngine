@@ -6,4 +6,5 @@
 
 namespace JediEngine {
     void sayHello();
+    int createWindow();
 }

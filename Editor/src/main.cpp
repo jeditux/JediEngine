@@ -8,5 +8,5 @@
 int main() {
     std::cout << "Hello from JediEngine Editor" << std::endl;
     JediEngine::sayHello();
-    std::cin.get();
+    JediEngine::createWindow();
 }
