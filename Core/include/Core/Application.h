@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <memory>
+
 namespace JediEngine {
     class Application {
     public:
@@ -17,5 +19,8 @@ namespace JediEngine {
 
         virtual int start(unsigned int width, unsigned int height, const char* title);
         virtual void on_update() {}
+
+    private:
+        std::unique_ptr<class Window> m_pWindow;
     };
 }

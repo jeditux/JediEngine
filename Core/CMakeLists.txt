@@ -6,12 +6,17 @@ set(ENGINE_PUBLIC_INCLUDES
         include/Core/Application.h
         include/Core/Log.h)
 
-set(ENGINE_PRIVATE_SOURCES
-        src/Core/Application.cpp)
+set(ENGINE_PRIVATE_INCLUDES
+        src/Core/Window.h)
 
-add_library(${ENGINE_PROJECT_NAME} STATIC ${ENGINE_PUBLIC_INCLUDES} ${ENGINE_PRIVATE_SOURCES})
+set(ENGINE_PRIVATE_SOURCES
+        src/Core/Application.cpp
+        src/Core/Window.cpp)
+
+add_library(${ENGINE_PROJECT_NAME} STATIC ${ENGINE_PUBLIC_INCLUDES} ${ENGINE_PRIVATE_INCLUDES} ${ENGINE_PRIVATE_SOURCES})
 
 target_include_directories(${ENGINE_PROJECT_NAME} PUBLIC include)
+target_include_directories(${ENGINE_PROJECT_NAME} PRIVATE src)
 target_compile_features(${ENGINE_PROJECT_NAME} PUBLIC cxx_std_17)
 
 add_subdirectory(../external/glfw ${CMAKE_CURRENT_BINARY_DIR}/glfw)
