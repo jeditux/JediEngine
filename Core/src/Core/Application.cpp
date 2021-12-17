@@ -6,7 +6,7 @@
 #include "Core/Log.h"
 #include "Window.h"
 
-namespace JediEngine {
+namespace Core {
 
     Application::Application() {
         LOG_INFO("Starting Application");

@@ -6,7 +6,7 @@
 #include <memory>
 #include "Core/Application.h"
 
-class MyApp : public JediEngine::Application {
+class MyApp : public Core::Application {
 public:
     void on_update() override {
 //        std::cout << "Update frame: " << frame++ << std::endl;

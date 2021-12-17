@@ -6,7 +6,7 @@
 
 #include <spdlog/spdlog.h>
 
-namespace JediEngine {
+namespace Core {
 #ifdef NDEBUG
     #define LOG_INFO(...)
     #define LOG_WARN(...)

@@ -4,7 +4,7 @@
 
 #pragma once
 
-namespace JediEngine {
+namespace Core {
     struct Event {
         unsigned int width;
         unsigned int height;

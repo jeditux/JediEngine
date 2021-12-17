@@ -11,7 +11,7 @@
 
 struct GLFWwindow;
 
-namespace JediEngine {
+namespace Core {
     class Window {
     public:
         using EventCallbackFn = std::function<void(Event&)>;

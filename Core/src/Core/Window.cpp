@@ -8,7 +8,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-namespace JediEngine {
+namespace Core {
 
     static bool s_GLFW_initialized = false;
 

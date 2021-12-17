@@ -6,7 +6,7 @@
 
 #include <memory>
 
-namespace JediEngine {
+namespace Core {
     class Application {
     public:
         Application();
