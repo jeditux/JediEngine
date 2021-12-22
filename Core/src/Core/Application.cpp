@@ -22,7 +22,7 @@ namespace Core {
             LOG_INFO("[EVENT] Changed size to {0}x{1}", event.width, event.height);
         });
 
-        while (true)
+        while (!m_pWindow->getWindowClose())
         {
             m_pWindow->on_update();
             on_update();

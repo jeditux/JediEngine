@@ -72,4 +72,8 @@ namespace Core {
         glfwSwapBuffers(m_pWindow);
         glfwPollEvents();
     }
+
+    bool Window::getWindowClose() {
+        return glfwWindowShouldClose(m_pWindow);
+    }
 }

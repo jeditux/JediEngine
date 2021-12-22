@@ -32,6 +32,8 @@ namespace Core {
             m_data.eventCallbackFn = callback;
         }
 
+        bool getWindowClose();
+
     private:
         struct WindowData {
             std::string title;
