@@ -47,5 +47,8 @@ namespace Core {
 
         GLFWwindow* m_pWindow = nullptr;
         WindowData m_data;
+
+        unsigned int m_shaderProgram;
+        unsigned int m_vao;
     };
 }
