@@ -8,6 +8,9 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <imgui/imgui.h>
+#include <imgui/backends/imgui_impl_opengl3.h>
+
 namespace Core {
 
     static bool s_GLFW_initialized = false;
@@ -15,6 +18,10 @@ namespace Core {
     Window::Window(std::string title, const unsigned int width, const unsigned int height)
     : m_data({std::move(title), width, height}) {
         int resultCode = init();
+
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGui_ImplOpenGL3_Init();
     }
 
     Window::~Window() {
@@ -122,6 +129,18 @@ namespace Core {
         glBindVertexArray(m_vao);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindVertexArray(0);
+
+        ImGuiIO& io = ImGui::GetIO();
+        io.DisplaySize.x = static_cast<float>(getWidth());
+        io.DisplaySize.y = static_cast<float>(getHeight());
+
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui::NewFrame();
+
+        ImGui::ShowDemoWindow();
+
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(m_pWindow);
         glfwPollEvents();
