@@ -5,6 +5,7 @@
 #pragma once
 
 #include <memory>
+#include "Event.h"
 
 namespace Core {
     class Application {
@@ -22,5 +23,6 @@ namespace Core {
 
     private:
         std::unique_ptr<class Window> m_pWindow;
+        EventDispatcher m_dispatcher;
     };
 }

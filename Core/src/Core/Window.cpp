@@ -57,10 +57,7 @@ namespace Core {
             WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(pWindow));
             data.width = width;
             data.height = height;
-
-            Event event;
-            event.width = width;
-            event.height = height;
+            ResizeEvent event(width, height);
             data.eventCallbackFn(event);
 
             glViewport(0, 0, width, height);

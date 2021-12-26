@@ -14,7 +14,7 @@ struct GLFWwindow;
 namespace Core {
     class Window {
     public:
-        using EventCallbackFn = std::function<void(Event&)>;
+        using EventCallbackFn = std::function<void(BaseEvent&)>;
 
         Window(std::string title, const unsigned int width, const unsigned int height);
         ~Window();
@@ -25,10 +25,10 @@ namespace Core {
         Window& operator=(Window&&) = delete;
 
         void on_update();
-        unsigned int get_width() const { return m_data.width; }
-        unsigned int get_height() const { return m_data.height; }
+        unsigned int getWidth() const { return m_data.width; }
+        unsigned int getHeight() const { return m_data.height; }
 
-        void set_event_callback(const EventCallbackFn& callback) {
+        void setEventCallback(const EventCallbackFn& callback) {
             m_data.eventCallbackFn = callback;
         }
 
