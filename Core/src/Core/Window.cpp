@@ -10,6 +10,7 @@
 
 #include <imgui/imgui.h>
 #include <imgui/backends/imgui_impl_opengl3.h>
+#include <imgui/backends/imgui_impl_glfw.h>
 
 namespace Core {
 
@@ -21,6 +22,7 @@ namespace Core {
 
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
+        ImGui_ImplGlfw_InitForOpenGL(m_pWindow, true);
         ImGui_ImplOpenGL3_Init();
     }
 
@@ -135,6 +137,7 @@ namespace Core {
         io.DisplaySize.y = static_cast<float>(getHeight());
 
         ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
         ImGui::ShowDemoWindow();
