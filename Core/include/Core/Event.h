@@ -9,6 +9,7 @@
 namespace Core {
     enum class EventType {
         resizeEvent,
+        mouseMoveEvent,
         eventCount
     };
 
@@ -32,6 +33,23 @@ namespace Core {
         unsigned int height;
 
         const static EventType type = EventType::resizeEvent;
+    };
+
+    struct MouseMoveEvent : public BaseEvent {
+        MouseMoveEvent(double newX, double newY)
+                : BaseEvent()
+                , x(newX)
+                , y(newY)
+        {}
+
+        EventType getType() override {
+            return EventType::mouseMoveEvent;
+        }
+
+        double x;
+        double y;
+
+        const static EventType type = EventType::mouseMoveEvent;
     };
 
     class EventDispatcher {

@@ -21,6 +21,9 @@ namespace Core {
         m_dispatcher.addEventHandler<ResizeEvent>([](ResizeEvent& event) {
             LOG_INFO("[EVENT] Changed size to {0}x{1}", event.width, event.height);
         });
+        m_dispatcher.addEventHandler<MouseMoveEvent>([](MouseMoveEvent& event) {
+            LOG_INFO("[EVENT] Mouse moved to {0}x{1}", event.x, event.y);
+        });
         m_pWindow->setEventCallback([&](BaseEvent& event) {
             m_dispatcher.dispatch(event);
         });
