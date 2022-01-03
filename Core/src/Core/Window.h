@@ -10,6 +10,7 @@
 #include <functional>
 #include <memory>
 #include <Rendering/ShaderProgram.h>
+#include <Core/ResourceManager.h>
 
 struct GLFWwindow;
 
@@ -18,7 +19,7 @@ namespace Core {
     public:
         using EventCallbackFn = std::function<void(BaseEvent&)>;
 
-        Window(std::string title, const unsigned int width, const unsigned int height);
+        Window(std::string title, const unsigned int width, const unsigned int height, std::string executablePath);
         ~Window();
 
         Window(const Window&) = delete;
@@ -35,6 +36,7 @@ namespace Core {
         }
 
         bool getWindowClose();
+        void setExecutablePath(const std::string& path) { m_executablePath = path; }
 
     private:
         struct WindowData {
@@ -50,7 +52,9 @@ namespace Core {
         GLFWwindow* m_pWindow = nullptr;
         WindowData m_data;
 
-        std::unique_ptr<Rendering::ShaderProgram> m_pShaderProgram;
+        std::shared_ptr<Rendering::ShaderProgram> m_pShaderProgram;
         unsigned int m_vao;
+        std::unique_ptr<Core::ResourceManager> m_pResourceManager;
+        std::string m_executablePath;
     };
 }

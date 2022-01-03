@@ -4,13 +4,14 @@
 
 #pragma once
 
+#include <string>
 #include <memory>
 #include "Event.h"
 
 namespace Core {
     class Application {
     public:
-        Application();
+        Application(const std::string& executablePath);
         virtual ~Application();
 
         Application(const Application&) = delete;
@@ -24,5 +25,6 @@ namespace Core {
     private:
         std::unique_ptr<class Window> m_pWindow;
         EventDispatcher m_dispatcher;
+        std::string m_executablePath;
     };
 }

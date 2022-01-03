@@ -6,6 +6,8 @@ set(ENGINE_PUBLIC_INCLUDES
         include/Core/Application.h
         include/Core/Log.h
         include/Core/Event.h
+        include/Rendering/ShaderProgram.h
+        include/Core/ResourceManager.h
 )
 
 set(ENGINE_PRIVATE_INCLUDES
@@ -15,7 +17,9 @@ set(ENGINE_PRIVATE_INCLUDES
 set(ENGINE_PRIVATE_SOURCES
         src/Core/Application.cpp
         src/Core/Window.cpp
-        include/Rendering/ShaderProgram.h src/Rendering/ShaderProgram.cpp)
+        src/Rendering/ShaderProgram.cpp
+        src/Core/ResourceManager.cpp
+)
 
 add_library(${ENGINE_PROJECT_NAME} STATIC ${ENGINE_PUBLIC_INCLUDES} ${ENGINE_PRIVATE_INCLUDES} ${ENGINE_PRIVATE_SOURCES})
 

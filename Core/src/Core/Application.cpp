@@ -8,7 +8,8 @@
 
 namespace Core {
 
-    Application::Application() {
+    Application::Application(const std::string& executablePath)
+        : m_executablePath(executablePath) {
         LOG_INFO("Starting Application");
     }
 
@@ -17,7 +18,8 @@ namespace Core {
     }
 
     int Application::start(unsigned int window_width, unsigned int window_height, const char *title) {
-        m_pWindow = std::make_unique<Window>(title, window_width, window_height);
+        m_pWindow = std::make_unique<Window>(title, window_width, window_height, m_executablePath);
+//        m_pWindow->setExecutablePath(m_executablePath);
         m_dispatcher.addEventHandler<ResizeEvent>([](ResizeEvent& event) {
             LOG_INFO("[EVENT] Changed size to {0}x{1}", event.width, event.height);
         });

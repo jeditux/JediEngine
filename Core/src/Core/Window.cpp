@@ -16,8 +16,9 @@ namespace Core {
 
     static bool s_GLFW_initialized = false;
 
-    Window::Window(std::string title, const unsigned int width, const unsigned int height)
-    : m_data({std::move(title), width, height}) {
+    Window::Window(std::string title, const unsigned int width, const unsigned int height, std::string executablePath)
+    : m_data({std::move(title), width, height})
+    , m_executablePath(std::move(executablePath)) {
         int resultCode = init();
 
         IMGUI_CHECKVERSION();
@@ -78,21 +79,8 @@ namespace Core {
             data.eventCallbackFn(event);
         });
 
-        const char *vertexShaderSource = "#version 330 core\n"
-                                         "layout (location = 0) in vec3 aPos;\n"
-                                         "void main()\n"
-                                         "{\n"
-                                         "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-                                         "}\0";
-
-        const char *fragmentShaderSource = "#version 330 core\n"
-                                           "out vec4 FragColor;\n"
-                                           "void main()\n"
-                                           "{\n"
-                                           "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-                                           "}\0";
-
-        m_pShaderProgram = std::make_unique<Rendering::ShaderProgram>(vertexShaderSource, fragmentShaderSource);
+        m_pResourceManager = std::make_unique<Core::ResourceManager>(m_executablePath);
+        m_pShaderProgram = m_pResourceManager->loadShader("triangle", "triangle.vert", "triangle.frag");
 
         unsigned int VBO;
         glGenBuffers(1, &VBO);
