@@ -8,6 +8,8 @@
 
 #include <string>
 #include <functional>
+#include <memory>
+#include <Rendering/ShaderProgram.h>
 
 struct GLFWwindow;
 
@@ -48,7 +50,7 @@ namespace Core {
         GLFWwindow* m_pWindow = nullptr;
         WindowData m_data;
 
-        unsigned int m_shaderProgram;
+        std::unique_ptr<Rendering::ShaderProgram> m_pShaderProgram;
         unsigned int m_vao;
     };
 }

@@ -15,7 +15,7 @@ set(ENGINE_PRIVATE_INCLUDES
 set(ENGINE_PRIVATE_SOURCES
         src/Core/Application.cpp
         src/Core/Window.cpp
-)
+        include/Rendering/ShaderProgram.h src/Rendering/ShaderProgram.cpp)
 
 add_library(${ENGINE_PROJECT_NAME} STATIC ${ENGINE_PUBLIC_INCLUDES} ${ENGINE_PRIVATE_INCLUDES} ${ENGINE_PRIVATE_SOURCES})
 

@@ -85,30 +85,14 @@ namespace Core {
                                          "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
                                          "}\0";
 
-        unsigned int vertexShader;
-        vertexShader = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-        glCompileShader(vertexShader);
-
         const char *fragmentShaderSource = "#version 330 core\n"
                                            "out vec4 FragColor;\n"
                                            "void main()\n"
                                            "{\n"
                                            "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
                                            "}\0";
-        unsigned int fragmentShader;
-        fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-        glCompileShader(fragmentShader);
 
-        //unsigned int shaderProgram;
-        m_shaderProgram = glCreateProgram();
-        glAttachShader(m_shaderProgram, vertexShader);
-        glAttachShader(m_shaderProgram, fragmentShader);
-        glLinkProgram(m_shaderProgram);
-
-        glDeleteShader(vertexShader);
-        glDeleteShader(fragmentShader);
+        m_pShaderProgram = std::make_unique<Rendering::ShaderProgram>(vertexShaderSource, fragmentShaderSource);
 
         unsigned int VBO;
         glGenBuffers(1, &VBO);
@@ -133,7 +117,7 @@ namespace Core {
         glClearColor(0.0, 0.0, 0.0, 0.0);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(m_shaderProgram);
+        m_pShaderProgram->use();
         glBindVertexArray(m_vao);
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindVertexArray(0);
