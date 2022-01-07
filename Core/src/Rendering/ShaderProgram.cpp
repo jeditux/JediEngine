@@ -62,5 +62,21 @@ namespace Rendering {
         }
         return true;
     }
+
+    void ShaderProgram::setUniform4f(const std::string &name, GLfloat f1, GLfloat f2, GLfloat f3, GLfloat f4) const {
+        glUniform4f(glGetUniformLocation(m_Id, name.c_str()), f1, f2, f3, f4);
+    }
+
+    void ShaderProgram::setBool(const std::string &name, bool value) const {
+        glUniform1i(glGetUniformLocation(m_Id, name.c_str()), static_cast<int>(value));
+    }
+
+    void ShaderProgram::setInt(const std::string &name, int value) const {
+        glUniform1i(glGetUniformLocation(m_Id, name.c_str()), value);
+    }
+
+    void ShaderProgram::setFloat(const std::string &name, float value) const {
+        glUniform1f(glGetUniformLocation(m_Id, name.c_str()), value);
+    }
 }
 

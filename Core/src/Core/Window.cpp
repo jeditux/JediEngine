@@ -32,9 +32,17 @@ namespace Core {
     }
 
     float vertices[] = {
-            -0.5f, -0.5f, 0.0f,
-            0.5f, -0.5f, 0.0f,
-            0.0f,  0.5f, 0.0f
+            -0.1f, 0.1f, 0.0f, 1.0f, 0.5f, 0.2f,
+            -0.9f, 0.1f, 0.0f, 1.0f, 0.5f, 0.2f,
+            -0.5f,  0.9f, 0.0f, 1.0f, 0.5f, 0.2f,
+
+            0.1f, 0.1f, 0.0f, 0.0f, 0.0f, 0.0f,
+            0.9f, 0.1f, 0.0f, 0.0f, 0.0f, 0.0f,
+            0.5f,  0.9f, 0.0f, 0.0f, 0.0f, 0.0f,
+
+            -0.1f, -0.9f, 0.0f, 1.0f, 0.0f, 0.0f,
+            -0.9f, -0.9f, 0.0f, 0.0f, 1.0f, 0.0f,
+            -0.5f,  -0.1f, 0.0f, 0.0f, 0.0f, 1.0f
     };
 
     int Window::init() {
@@ -89,8 +97,10 @@ namespace Core {
 
         glGenBuffers(1, &m_vao);
         glBindVertexArray(m_vao);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*) (3 * sizeof(float)));
+        glEnableVertexAttribArray(1);
         glBindVertexArray(0);
 
         return 0;
@@ -102,26 +112,34 @@ namespace Core {
     }
 
     void Window::on_update() {
-        glClearColor(0.0, 0.0, 0.0, 0.0);
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        float timeValue = glfwGetTime();
+        float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
         m_pShaderProgram->use();
+        m_pShaderProgram->setUniform4f("blinkingColor", 0.0, greenValue, 0.0, 1.0);
         glBindVertexArray(m_vao);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        m_pShaderProgram->setBool("blinking", false);
+        glDrawArrays(GL_TRIANGLES, 0, 18);
+        m_pShaderProgram->setBool("blinking", true);
+        glDrawArrays(GL_TRIANGLES, 18, 18);
+        m_pShaderProgram->setBool("blinking", false);
+        glDrawArrays(GL_TRIANGLES, 36, 18);
         glBindVertexArray(0);
 
-        ImGuiIO& io = ImGui::GetIO();
-        io.DisplaySize.x = static_cast<float>(getWidth());
-        io.DisplaySize.y = static_cast<float>(getHeight());
-
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-
-        ImGui::ShowDemoWindow();
-
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+//        ImGuiIO& io = ImGui::GetIO();
+//        io.DisplaySize.x = static_cast<float>(getWidth());
+//        io.DisplaySize.y = static_cast<float>(getHeight());
+//
+//        ImGui_ImplOpenGL3_NewFrame();
+//        ImGui_ImplGlfw_NewFrame();
+//        ImGui::NewFrame();
+//
+//        ImGui::ShowDemoWindow();
+//
+//        ImGui::Render();
+//        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         glfwSwapBuffers(m_pWindow);
         glfwPollEvents();
