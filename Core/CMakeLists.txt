@@ -8,6 +8,7 @@ set(ENGINE_PUBLIC_INCLUDES
         include/Core/Event.h
         include/Rendering/ShaderProgram.h
         include/Core/ResourceManager.h
+        include/Rendering/Texture2D.h
 )
 
 set(ENGINE_PRIVATE_INCLUDES
@@ -19,6 +20,7 @@ set(ENGINE_PRIVATE_SOURCES
         src/Core/Window.cpp
         src/Rendering/ShaderProgram.cpp
         src/Core/ResourceManager.cpp
+        src/Rendering/Texture2D.cpp
 )
 
 add_library(${ENGINE_PROJECT_NAME} STATIC ${ENGINE_PUBLIC_INCLUDES} ${ENGINE_PRIVATE_INCLUDES} ${ENGINE_PRIVATE_SOURCES})

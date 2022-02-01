@@ -53,6 +53,8 @@ namespace Core {
         WindowData m_data;
 
         std::shared_ptr<Rendering::ShaderProgram> m_pShaderProgram;
+        std::shared_ptr<Rendering::ShaderProgram> m_pTextureShader;
+        std::shared_ptr<Rendering::Texture2D> m_pWallTexture;
         unsigned int m_vao;
         std::unique_ptr<Core::ResourceManager> m_pResourceManager;
         std::string m_executablePath;

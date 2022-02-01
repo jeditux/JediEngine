@@ -4,6 +4,7 @@
 
 #include "Window.h"
 #include "Core/Log.h"
+#include "Rendering/Texture2D.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -32,17 +33,15 @@ namespace Core {
     }
 
     float vertices[] = {
-            -0.1f, 0.1f, 0.0f, 1.0f, 0.5f, 0.2f,
-            -0.9f, 0.1f, 0.0f, 1.0f, 0.5f, 0.2f,
-            -0.5f,  0.9f, 0.0f, 1.0f, 0.5f, 0.2f,
-
-            0.1f, 0.1f, 0.0f, 0.0f, 0.0f, 0.0f,
-            0.9f, 0.1f, 0.0f, 0.0f, 0.0f, 0.0f,
-            0.5f,  0.9f, 0.0f, 0.0f, 0.0f, 0.0f,
-
-            -0.1f, -0.9f, 0.0f, 1.0f, 0.0f, 0.0f,
-            -0.9f, -0.9f, 0.0f, 0.0f, 1.0f, 0.0f,
-            -0.5f,  -0.1f, 0.0f, 0.0f, 0.0f, 1.0f
+            // positions          // colors           // texture coords
+            0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
+            0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
+            -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
+            -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left
+    };
+    unsigned int indices[] = {
+            0, 1, 3, // first triangle
+            1, 2, 3  // second triangle
     };
 
     int Window::init() {
@@ -89,19 +88,33 @@ namespace Core {
 
         m_pResourceManager = std::make_unique<Core::ResourceManager>(m_executablePath);
         m_pShaderProgram = m_pResourceManager->loadShader("triangle", "triangle.vert", "triangle.frag");
+        m_pWallTexture = m_pResourceManager->loadTexture("wall", "container.jpg");
 
-        unsigned int VBO;
+        unsigned int VBO, EBO;
+        glGenVertexArrays(1, &m_vao);
         glGenBuffers(1, &VBO);
+        glGenBuffers(1, &EBO);
+
+        glBindVertexArray(m_vao);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-        glGenBuffers(1, &m_vao);
-        glBindVertexArray(m_vao);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*) (3 * sizeof(float)));
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*) (3 * sizeof(float)));
         glEnableVertexAttribArray(1);
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*) (6 * sizeof(float)));
+        glEnableVertexAttribArray(2);
         glBindVertexArray(0);
+
+        m_pTextureShader = m_pResourceManager->loadShader("texture", "texture.vert", "texture.frag");
+        m_pTextureShader->use();
+        glActiveTexture(GL_TEXTURE0);
+        m_pWallTexture->bind();
+        m_pTextureShader->setInt("ourTexture", 0);
 
         return 0;
     }
@@ -115,17 +128,11 @@ namespace Core {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        float timeValue = glfwGetTime();
-        float greenValue = (sin(timeValue) / 2.0f) + 0.5f;
-        m_pShaderProgram->use();
-        m_pShaderProgram->setUniform4f("blinkingColor", 0.0, greenValue, 0.0, 1.0);
+        glActiveTexture(GL_TEXTURE0);
+        m_pWallTexture->bind();
+        m_pTextureShader->use();
         glBindVertexArray(m_vao);
-        m_pShaderProgram->setBool("blinking", false);
-        glDrawArrays(GL_TRIANGLES, 0, 18);
-        m_pShaderProgram->setBool("blinking", true);
-        glDrawArrays(GL_TRIANGLES, 18, 18);
-        m_pShaderProgram->setBool("blinking", false);
-        glDrawArrays(GL_TRIANGLES, 36, 18);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
 
 //        ImGuiIO& io = ImGui::GetIO();

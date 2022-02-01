@@ -1,8 +1,11 @@
 #include "Core/ResourceManager.h"
 #include "Core/Log.h"
 #include "Rendering/ShaderProgram.h"
+#include "Rendering/Texture2D.h"
 #include <fstream>
 #include <sstream>
+#define STB_IMAGE_IMPLEMENTATION
+#include "Core/stb_image.h"
 
 namespace Core {
     ResourceManager::ResourceManager(const std::string& executablePath) {
@@ -50,5 +53,21 @@ namespace Core {
         std::stringstream buffer;
         buffer << vertexInput.rdbuf();
         return buffer.str();
+    }
+
+    std::shared_ptr<Rendering::Texture2D> ResourceManager::loadTexture(const std::string& textureName, const std::string& texturePath) {
+        int width, height, nrChannels;
+        unsigned char* data = stbi_load((m_path + "/" + RESOURCES_PATH + TEXTURES_PATH + texturePath).c_str(), &width, &height, &nrChannels, 0);
+        auto [it, isNew] = m_textures.try_emplace(textureName, std::make_shared<Rendering::Texture2D>(width, height, data));
+        stbi_image_free(data);
+        return it->second;
+    }
+
+    std::shared_ptr<Rendering::Texture2D> ResourceManager::getTexture(const std::string& textureName) const {
+        if (m_textures.count(textureName) == 0) {
+            LOG_WARN("Can't find texture: {0}", textureName);
+            return nullptr;
+        }
+        return m_textures.at(textureName);
     }
 }
