@@ -8,9 +8,16 @@
 
 namespace Core {
     enum class EventType {
-        resizeEvent,
-        mouseMoveEvent,
+        resize,
+        mouseMove,
+        mouseButtonClick,
+        mouseButtonRelease,
         eventCount
+    };
+
+    enum class MouseButton {
+        left,
+        right
     };
 
     struct BaseEvent {
@@ -26,30 +33,68 @@ namespace Core {
         {}
 
         EventType getType() override {
-            return EventType::resizeEvent;
+            return EventType::resize;
         }
 
         unsigned int width;
         unsigned int height;
 
-        const static EventType type = EventType::resizeEvent;
+        const static EventType type = EventType::resize;
     };
 
     struct MouseMoveEvent : public BaseEvent {
-        MouseMoveEvent(double newX, double newY)
+        MouseMoveEvent(unsigned int newX, unsigned int newY)
                 : BaseEvent()
                 , x(newX)
                 , y(newY)
         {}
 
         EventType getType() override {
-            return EventType::mouseMoveEvent;
+            return EventType::mouseMove;
         }
 
-        double x;
-        double y;
+        unsigned int x;
+        unsigned int y;
 
-        const static EventType type = EventType::mouseMoveEvent;
+        const static EventType type = EventType::mouseMove;
+    };
+
+    struct MouseButtonPressEvent : public BaseEvent {
+        MouseButtonPressEvent(unsigned int newX, unsigned int newY, MouseButton newButton)
+                : BaseEvent()
+                , x(newX)
+                , y(newY)
+                , button(newButton)
+        {}
+
+        EventType getType() override {
+            return EventType::mouseButtonClick;
+        }
+
+        unsigned int x;
+        unsigned int y;
+        MouseButton button;
+
+        const static EventType type = EventType::mouseButtonClick;
+    };
+
+    struct MouseButtonReleaseEvent : public BaseEvent {
+        MouseButtonReleaseEvent(unsigned int newX, unsigned int newY, MouseButton newButton)
+                : BaseEvent()
+                , x(newX)
+                , y(newY)
+                , button(newButton)
+        {}
+
+        EventType getType() override {
+            return EventType::mouseButtonRelease;
+        }
+
+        unsigned int x;
+        unsigned int y;
+        MouseButton button;
+
+        const static EventType type = EventType::mouseButtonRelease;
     };
 
     class EventDispatcher {

@@ -22,6 +22,10 @@ namespace Core {
         virtual int start(unsigned int width, unsigned int height, const char* title);
         virtual void on_update() {}
 
+        virtual void onMouseMove(MouseMoveEvent& event) {}
+        virtual void onMousePress(MouseButtonPressEvent& event) {}
+        virtual void onMouseRelease(MouseButtonReleaseEvent& event) {}
+
     private:
         std::unique_ptr<class Window> m_pWindow;
         EventDispatcher m_dispatcher;

@@ -15,6 +15,14 @@ public:
 //        std::cout << "Update frame: " << frame++ << std::endl;
     }
 
+    void onMouseMove(Core::MouseMoveEvent& event) override {
+//        std::cout << "Mouse moved to " << event.x << "x" << event.y << std::endl;
+    }
+
+    void onMousePress(Core::MouseButtonPressEvent& event) override {
+        std::cout << "Mouse pressed " << event.x << "x" << event.y << std::endl;
+    }
+
 private:
     int frame = 0;
 };

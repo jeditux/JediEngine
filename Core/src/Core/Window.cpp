@@ -82,8 +82,30 @@ namespace Core {
 
         glfwSetCursorPosCallback(m_pWindow, [](GLFWwindow* pWindow, double xpos, double ypos) {
             WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(pWindow));
-            MouseMoveEvent event(xpos, ypos);
+            MouseMoveEvent event(static_cast<unsigned int>(xpos), static_cast<unsigned int>(ypos));
             data.eventCallbackFn(event);
+        });
+
+        glfwSetMouseButtonCallback(m_pWindow, [](GLFWwindow* pWindow, int button, int action, int mods) {
+            WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(pWindow));
+            double xPos, yPos;
+            glfwGetCursorPos(pWindow, &xPos, &yPos);
+            MouseButton mouseButton;
+            switch (button) {
+                case GLFW_MOUSE_BUTTON_LEFT:
+                    mouseButton = MouseButton::left;
+                    break;
+                case GLFW_MOUSE_BUTTON_RIGHT:
+                    mouseButton = MouseButton::right;
+                    break;
+            }
+            if (action == GLFW_PRESS) {
+                MouseButtonPressEvent event(static_cast<unsigned int>(xPos), static_cast<unsigned int>(yPos), mouseButton);
+                data.eventCallbackFn(event);
+            } else if (action == GLFW_RELEASE) {
+                MouseButtonReleaseEvent event(static_cast<unsigned int>(xPos), static_cast<unsigned int>(yPos), mouseButton);
+                data.eventCallbackFn(event);
+            }
         });
 
         m_pResourceManager = std::make_unique<Core::ResourceManager>(m_executablePath);
