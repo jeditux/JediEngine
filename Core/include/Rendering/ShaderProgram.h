@@ -18,6 +18,7 @@ namespace Rendering {
         void setBool(const std::string& name, bool value) const;
         void setInt(const std::string& name, int value) const;
         void setFloat(const std::string& name, float value) const;
+        void setMatrix(const std::string& name, const GLfloat* value) const;
 
     private:
         bool createShader(const std::string& source, const GLenum shaderType, GLuint& shaderId);

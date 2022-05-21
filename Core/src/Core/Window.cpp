@@ -9,6 +9,10 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 #include <imgui/imgui.h>
 #include <imgui/backends/imgui_impl_opengl3.h>
 #include <imgui/backends/imgui_impl_glfw.h>
@@ -137,6 +141,11 @@ namespace Core {
         glActiveTexture(GL_TEXTURE0);
         m_pWallTexture->bind();
         m_pTextureShader->setInt("ourTexture", 0);
+
+        glm::mat4 trans = glm::mat4(1.0);
+        trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
+        trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
+        m_pTextureShader->setMatrix("transform", glm::value_ptr(trans));
 
         return 0;
     }

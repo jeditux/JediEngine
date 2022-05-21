@@ -71,12 +71,16 @@ namespace Rendering {
         glUniform1i(glGetUniformLocation(m_Id, name.c_str()), static_cast<int>(value));
     }
 
-    void ShaderProgram::setInt(const std::string &name, int value) const {
+    void ShaderProgram::setInt(const std::string& name, int value) const {
         glUniform1i(glGetUniformLocation(m_Id, name.c_str()), value);
     }
 
-    void ShaderProgram::setFloat(const std::string &name, float value) const {
+    void ShaderProgram::setFloat(const std::string& name, float value) const {
         glUniform1f(glGetUniformLocation(m_Id, name.c_str()), value);
+    }
+
+    void ShaderProgram::setMatrix(const std::string& name, const GLfloat* value) const {
+        glUniformMatrix4fv(glGetUniformLocation(m_Id, name.c_str()), 1, GL_FALSE, value);
     }
 }
 
