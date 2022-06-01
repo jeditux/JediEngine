@@ -9,6 +9,7 @@ set(ENGINE_PUBLIC_INCLUDES
         include/Rendering/ShaderProgram.h
         include/Core/ResourceManager.h
         include/Rendering/Texture2D.h
+        include/Rendering/GraphicsScene.h
 )
 
 set(ENGINE_PRIVATE_INCLUDES
@@ -21,7 +22,7 @@ set(ENGINE_PRIVATE_SOURCES
         src/Rendering/ShaderProgram.cpp
         src/Core/ResourceManager.cpp
         src/Rendering/Texture2D.cpp
-)
+        src/Rendering/GraphicsScene.cpp)
 
 add_library(${ENGINE_PROJECT_NAME} STATIC ${ENGINE_PUBLIC_INCLUDES} ${ENGINE_PRIVATE_INCLUDES} ${ENGINE_PRIVATE_SOURCES})
 

@@ -7,6 +7,7 @@
 #include <string>
 #include <memory>
 #include "Event.h"
+#include "Rendering/GraphicsScene.h"
 
 namespace Core {
     class Application {
@@ -30,5 +31,6 @@ namespace Core {
         std::unique_ptr<class Window> m_pWindow;
         EventDispatcher m_dispatcher;
         std::string m_executablePath;
+        std::shared_ptr<Rendering::GraphicsScene> m_pScene;
     };
 }

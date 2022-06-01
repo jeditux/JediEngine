@@ -5,12 +5,11 @@
 #pragma once
 
 #include "Core/Event.h"
+#include "Rendering/GraphicsScene.h"
 
 #include <string>
 #include <functional>
 #include <memory>
-#include <Rendering/ShaderProgram.h>
-#include <Core/ResourceManager.h>
 
 struct GLFWwindow;
 
@@ -38,6 +37,8 @@ namespace Core {
         bool getWindowClose();
         void setExecutablePath(const std::string& path) { m_executablePath = path; }
 
+        void setScene(const std::shared_ptr<Rendering::GraphicsScene>& scene);
+
     private:
         struct WindowData {
             std::string title;
@@ -51,12 +52,8 @@ namespace Core {
 
         GLFWwindow* m_pWindow = nullptr;
         WindowData m_data;
-
-        std::shared_ptr<Rendering::ShaderProgram> m_pShaderProgram;
-        std::shared_ptr<Rendering::ShaderProgram> m_pTextureShader;
-        std::shared_ptr<Rendering::Texture2D> m_pWallTexture;
-        unsigned int m_vao;
-        std::unique_ptr<Core::ResourceManager> m_pResourceManager;
         std::string m_executablePath;
+
+        std::shared_ptr<Rendering::GraphicsScene> m_pScene;
     };
 }
