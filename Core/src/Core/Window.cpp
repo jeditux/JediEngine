@@ -8,10 +8,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#include <imgui/imgui.h>
-#include <imgui/backends/imgui_impl_opengl3.h>
-#include <imgui/backends/imgui_impl_glfw.h>
-
 namespace Core {
 
     static bool s_GLFW_initialized = false;
@@ -21,10 +17,9 @@ namespace Core {
     , m_executablePath(std::move(executablePath)) {
         int resultCode = init();
 
-        IMGUI_CHECKVERSION();
-        ImGui::CreateContext();
-        ImGui_ImplGlfw_InitForOpenGL(m_pWindow, true);
-        ImGui_ImplOpenGL3_Init();
+        m_pGuiManager = std::make_shared<Rendering::GuiManager>();
+        m_pGuiManager->init(m_pWindow, width, height);
+        m_pGuiManager->setEnabled(true);
     }
 
     Window::~Window() {
@@ -115,18 +110,7 @@ namespace Core {
             m_pScene->render();
         }
 
-//        ImGuiIO& io = ImGui::GetIO();
-//        io.DisplaySize.x = static_cast<float>(getWidth());
-//        io.DisplaySize.y = static_cast<float>(getHeight());
-//
-//        ImGui_ImplOpenGL3_NewFrame();
-//        ImGui_ImplGlfw_NewFrame();
-//        ImGui::NewFrame();
-//
-//        ImGui::ShowDemoWindow();
-//
-//        ImGui::Render();
-//        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        m_pGuiManager->render();
 
         glfwSwapBuffers(m_pWindow);
         glfwPollEvents();

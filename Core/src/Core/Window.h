@@ -6,6 +6,7 @@
 
 #include "Core/Event.h"
 #include "Rendering/GraphicsScene.h"
+#include "Rendering/GuiManager.h"
 
 #include <string>
 #include <functional>
@@ -55,5 +56,6 @@ namespace Core {
         std::string m_executablePath;
 
         std::shared_ptr<Rendering::GraphicsScene> m_pScene;
+        std::shared_ptr<Rendering::GuiManager> m_pGuiManager;
     };
 }
