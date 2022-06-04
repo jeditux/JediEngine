@@ -16,10 +16,6 @@ namespace Core {
     : m_data({std::move(title), width, height})
     , m_executablePath(std::move(executablePath)) {
         int resultCode = init();
-
-        m_pGuiManager = std::make_shared<Rendering::GuiManager>();
-        m_pGuiManager->init(m_pWindow, width, height);
-        m_pGuiManager->setEnabled(true);
     }
 
     Window::~Window() {
@@ -98,19 +94,17 @@ namespace Core {
         glfwTerminate();
     }
 
-    void Window::setScene(const std::shared_ptr<Rendering::GraphicsScene>& scene) {
-        m_pScene = scene;
+    void Window::setEventCallback(const EventCallbackFn& callback) {
+        m_data.eventCallbackFn = callback;
     }
 
-    void Window::on_update() {
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+    void Window::setRenderFunction(const RenderFn& renderFunction) {
+        m_renderFunction = renderFunction;
+    }
 
-        if (m_pScene != nullptr) {
-            m_pScene->render();
-        }
+    void Window::render() {
 
-        m_pGuiManager->render();
+        m_renderFunction();
 
         glfwSwapBuffers(m_pWindow);
         glfwPollEvents();

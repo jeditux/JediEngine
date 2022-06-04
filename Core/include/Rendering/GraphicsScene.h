@@ -13,8 +13,10 @@
 namespace Rendering {
     class GraphicsScene {
     public:
-        GraphicsScene(const std::string& executablePath);
+        GraphicsScene(std::string executablePath);
         void render();
+
+        std::array<float, 4>& backgroundColor();
 
     private:
         std::shared_ptr<Rendering::ShaderProgram> m_pShaderProgram;
@@ -23,6 +25,8 @@ namespace Rendering {
         std::shared_ptr<Rendering::Texture2D> m_pSmileTexture;
         unsigned int m_vao;
         std::unique_ptr<Core::ResourceManager> m_pResourceManager;
+
+        std::array<float, 4> m_backgroundColor;
 
         std::string m_executablePath;
     };

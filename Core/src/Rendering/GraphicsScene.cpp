@@ -26,7 +26,7 @@ namespace Rendering {
             1, 2, 3  // second triangle
     };
 
-    GraphicsScene::GraphicsScene(const std::string& executablePath) : m_executablePath(executablePath) {
+    GraphicsScene::GraphicsScene(std::string executablePath) : m_executablePath(std::move(executablePath)) {
         m_pResourceManager = std::make_unique<Core::ResourceManager>(m_executablePath);
         m_pShaderProgram = m_pResourceManager->loadShader("triangle", "triangle.vert", "triangle.frag");
         m_pContainerTexture = m_pResourceManager->loadTexture("container", "container.jpg");
@@ -66,9 +66,14 @@ namespace Rendering {
         trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
         trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
         m_pTextureShader->setMatrix("transform", glm::value_ptr(trans));
+
+        m_backgroundColor = {0.0f, 0.0f, 0.0f, 0.0f};
     }
 
     void GraphicsScene::render() {
+        glClearColor(m_backgroundColor[0], m_backgroundColor[1], m_backgroundColor[2], m_backgroundColor[3]);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         glActiveTexture(GL_TEXTURE0);
         m_pContainerTexture->bind();
         glActiveTexture(GL_TEXTURE1);
@@ -77,5 +82,9 @@ namespace Rendering {
         glBindVertexArray(m_vao);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);
+    }
+
+    std::array<float, 4>& GraphicsScene::backgroundColor() {
+        return m_backgroundColor;
     }
 }

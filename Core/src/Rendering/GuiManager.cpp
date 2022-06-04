@@ -10,7 +10,7 @@
 
 namespace Rendering {
 
-    void GuiManager::init(GLFWwindow* window, unsigned int width, unsigned int height) {
+    GuiManager::GuiManager(GLFWwindow* window, unsigned int width, unsigned int height) {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -37,10 +37,28 @@ namespace Rendering {
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
 
-            ImGui::ShowDemoWindow();
+//            ImGui::ShowDemoWindow();
+
+            ImGui::Begin("Debug");
+            for (const auto& w : m_widgets) {
+                w->render();
+            }
+            ImGui::End();
 
             ImGui::Render();
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         }
+    }
+
+    void GuiManager::addColorPicker4(std::string label, std::array<float, 4> &value) {
+        m_widgets.emplace_back(std::make_shared<ColorPicker4>(std::move(label), value));
+    }
+
+    ColorPicker4::ColorPicker4(std::string label, std::array<float, 4> &value)
+        : m_label(std::move(label)), m_value(value) {
+    }
+
+    void ColorPicker4::render() {
+        ImGui::ColorPicker4(m_label.c_str(), m_value.data());
     }
 }

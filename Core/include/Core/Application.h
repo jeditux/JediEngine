@@ -8,11 +8,12 @@
 #include <memory>
 #include "Event.h"
 #include "Rendering/GraphicsScene.h"
+#include "Rendering/GuiManager.h"
 
 namespace Core {
     class Application {
     public:
-        Application(const std::string& executablePath);
+        Application(std::string executablePath);
         virtual ~Application();
 
         Application(const Application&) = delete;
@@ -32,5 +33,6 @@ namespace Core {
         EventDispatcher m_dispatcher;
         std::string m_executablePath;
         std::shared_ptr<Rendering::GraphicsScene> m_pScene;
+        std::shared_ptr<Rendering::GuiManager> m_pGuiManager;
     };
 }

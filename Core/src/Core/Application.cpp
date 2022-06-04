@@ -8,8 +8,8 @@
 
 namespace Core {
 
-    Application::Application(const std::string& executablePath)
-        : m_executablePath(executablePath) {
+    Application::Application(std::string executablePath)
+        : m_executablePath(std::move(executablePath)) {
         LOG_INFO("Starting Application");
     }
 
@@ -21,7 +21,8 @@ namespace Core {
         m_pWindow = std::make_unique<Window>(title, window_width, window_height, m_executablePath);
         m_pWindow->setExecutablePath(m_executablePath);
         m_pScene = std::make_shared<Rendering::GraphicsScene>(m_executablePath);
-        m_pWindow->setScene(m_pScene);
+        m_pGuiManager = std::make_shared<Rendering::GuiManager>(m_pWindow->getRawPtr(), window_width, window_height);
+        m_pGuiManager->addColorPicker4("Background Color", m_pScene->backgroundColor());
         m_dispatcher.addEventHandler<ResizeEvent>([](ResizeEvent& event) {
             LOG_INFO("[EVENT] Changed size to {0}x{1}", event.width, event.height);
         });
@@ -35,10 +36,14 @@ namespace Core {
         m_pWindow->setEventCallback([&](BaseEvent& event) {
             m_dispatcher.dispatch(event);
         });
+        m_pWindow->setRenderFunction([&]() {
+            m_pScene->render();
+            m_pGuiManager->render();
+        });
 
         while (!m_pWindow->getWindowClose())
         {
-            m_pWindow->on_update();
+            m_pWindow->render();
             on_update();
         }
         return 0;
