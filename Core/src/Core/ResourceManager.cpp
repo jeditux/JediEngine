@@ -56,9 +56,9 @@ namespace Core {
     }
 
     std::shared_ptr<Rendering::Texture2D> ResourceManager::loadTexture(const std::string& textureName, const std::string& texturePath) {
-        int width, height, nrChannels;
-        unsigned char* data = stbi_load((m_path + "/" + RESOURCES_PATH + TEXTURES_PATH + texturePath).c_str(), &width, &height, &nrChannels, 0);
-        auto [it, isNew] = m_textures.try_emplace(textureName, std::make_shared<Rendering::Texture2D>(width, height, data));
+        int width, height, nChannels;
+        unsigned char* data = stbi_load((m_path + "/" + RESOURCES_PATH + TEXTURES_PATH + texturePath).c_str(), &width, &height, &nChannels, 0);
+        auto [it, isNew] = m_textures.try_emplace(textureName, std::make_shared<Rendering::Texture2D>(width, height, nChannels, data));
         stbi_image_free(data);
         return it->second;
     }

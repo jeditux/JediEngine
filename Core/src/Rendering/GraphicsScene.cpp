@@ -29,7 +29,8 @@ namespace Rendering {
     GraphicsScene::GraphicsScene(const std::string& executablePath) : m_executablePath(executablePath) {
         m_pResourceManager = std::make_unique<Core::ResourceManager>(m_executablePath);
         m_pShaderProgram = m_pResourceManager->loadShader("triangle", "triangle.vert", "triangle.frag");
-        m_pWallTexture = m_pResourceManager->loadTexture("wall", "container.jpg");
+        m_pContainerTexture = m_pResourceManager->loadTexture("wall", "container.jpg");
+        m_pSmileTexture = m_pResourceManager->loadTexture("smile", "awesomeface.png");
 
         unsigned int VBO, EBO;
         glGenVertexArrays(1, &m_vao);
@@ -54,7 +55,7 @@ namespace Rendering {
         m_pTextureShader = m_pResourceManager->loadShader("texture", "texture.vert", "texture.frag");
         m_pTextureShader->use();
         glActiveTexture(GL_TEXTURE0);
-        m_pWallTexture->bind();
+        m_pSmileTexture->bind();
         m_pTextureShader->setInt("ourTexture", 0);
 
         glm::mat4 trans = glm::mat4(1.0);
@@ -65,7 +66,7 @@ namespace Rendering {
 
     void GraphicsScene::render() {
         glActiveTexture(GL_TEXTURE0);
-        m_pWallTexture->bind();
+        m_pSmileTexture->bind();
         m_pTextureShader->use();
         glBindVertexArray(m_vao);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

@@ -19,7 +19,8 @@ namespace Rendering {
     private:
         std::shared_ptr<Rendering::ShaderProgram> m_pShaderProgram;
         std::shared_ptr<Rendering::ShaderProgram> m_pTextureShader;
-        std::shared_ptr<Rendering::Texture2D> m_pWallTexture;
+        std::shared_ptr<Rendering::Texture2D> m_pContainerTexture;
+        std::shared_ptr<Rendering::Texture2D> m_pSmileTexture;
         unsigned int m_vao;
         std::unique_ptr<Core::ResourceManager> m_pResourceManager;
 
