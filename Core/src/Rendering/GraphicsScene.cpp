@@ -29,7 +29,7 @@ namespace Rendering {
     GraphicsScene::GraphicsScene(const std::string& executablePath) : m_executablePath(executablePath) {
         m_pResourceManager = std::make_unique<Core::ResourceManager>(m_executablePath);
         m_pShaderProgram = m_pResourceManager->loadShader("triangle", "triangle.vert", "triangle.frag");
-        m_pContainerTexture = m_pResourceManager->loadTexture("wall", "container.jpg");
+        m_pContainerTexture = m_pResourceManager->loadTexture("container", "container.jpg");
         m_pSmileTexture = m_pResourceManager->loadTexture("smile", "awesomeface.png");
 
         unsigned int VBO, EBO;
@@ -55,8 +55,12 @@ namespace Rendering {
         m_pTextureShader = m_pResourceManager->loadShader("texture", "texture.vert", "texture.frag");
         m_pTextureShader->use();
         glActiveTexture(GL_TEXTURE0);
+        m_pContainerTexture->bind();
+        m_pTextureShader->setInt("texture1", 0);
+
+        glActiveTexture(GL_TEXTURE1);
         m_pSmileTexture->bind();
-        m_pTextureShader->setInt("ourTexture", 0);
+        m_pTextureShader->setInt("texture2", 1);
 
         glm::mat4 trans = glm::mat4(1.0);
         trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
@@ -66,6 +70,8 @@ namespace Rendering {
 
     void GraphicsScene::render() {
         glActiveTexture(GL_TEXTURE0);
+        m_pContainerTexture->bind();
+        glActiveTexture(GL_TEXTURE1);
         m_pSmileTexture->bind();
         m_pTextureShader->use();
         glBindVertexArray(m_vao);
