@@ -62,17 +62,23 @@ namespace Rendering {
         m_pSmileTexture->bind();
         m_pTextureShader->setInt("texture2", 1);
 
-        glm::mat4 trans = glm::mat4(1.0);
-        trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-        trans = glm::scale(trans, glm::vec3(0.5, 0.5, 0.5));
-        m_pTextureShader->setMatrix("transform", glm::value_ptr(trans));
-
         m_backgroundColor = {0.0f, 0.0f, 0.0f, 0.0f};
     }
 
     void GraphicsScene::render() {
         glClearColor(m_backgroundColor[0], m_backgroundColor[1], m_backgroundColor[2], m_backgroundColor[3]);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::rotate(model, glm::radians(-55.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+        m_pTextureShader->setMatrix("model", glm::value_ptr(model));
+
+        glm::mat4 view = glm::mat4(1.0f);
+        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+        m_pTextureShader->setMatrix("view", glm::value_ptr(view));
+
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 0.1f, 100.0f);
+        m_pTextureShader->setMatrix("projection", glm::value_ptr(projection));
 
         glActiveTexture(GL_TEXTURE0);
         m_pContainerTexture->bind();
