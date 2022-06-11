@@ -11,6 +11,7 @@
 
 #include "Rendering/ShaderProgram.h"
 #include "Rendering/Texture2D.h"
+#include "Rendering/Camera.h"
 #include "GLFW/glfw3.h"
 
 namespace Rendering {
@@ -112,9 +113,11 @@ namespace Rendering {
         glClearColor(m_backgroundColor[0], m_backgroundColor[1], m_backgroundColor[2], m_backgroundColor[3]);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        glm::mat4 view = glm::mat4(1.0f);
-        view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
-        m_pTextureShader->setMatrix("view", glm::value_ptr(view));
+        const float radius = 10.0f;
+        float camX = sin(glfwGetTime()) * radius;
+        float camZ = cos(glfwGetTime()) * radius;
+        Camera camera(glm::vec3(camX, 0.0f, camZ), glm::vec3(0.0f, 0.0f, 0.0f));
+        m_pTextureShader->setMatrix("view", glm::value_ptr(camera.getViewMatrix()));
 
         glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 0.1f, 100.0f);
         m_pTextureShader->setMatrix("projection", glm::value_ptr(projection));

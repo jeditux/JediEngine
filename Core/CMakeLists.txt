@@ -11,6 +11,7 @@ set(ENGINE_PUBLIC_INCLUDES
         include/Rendering/Texture2D.h
         include/Rendering/GraphicsScene.h
         include/Rendering/GuiManager.h
+        include/Rendering/Camera.h
 )
 
 set(ENGINE_PRIVATE_INCLUDES
@@ -25,6 +26,7 @@ set(ENGINE_PRIVATE_SOURCES
         src/Rendering/Texture2D.cpp
         src/Rendering/GraphicsScene.cpp
         src/Rendering/GuiManager.cpp
+        src/Rendering/Camera.cpp
 )
 
 add_library(${ENGINE_PROJECT_NAME} STATIC ${ENGINE_PUBLIC_INCLUDES} ${ENGINE_PRIVATE_INCLUDES} ${ENGINE_PRIVATE_SOURCES})
