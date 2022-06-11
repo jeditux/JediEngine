@@ -11,6 +11,10 @@ public:
     MyApp(const std::string& path) : Core::Application(path) {
     }
 
+    void setupUI() override {
+        gui()->addColorPicker4("Background Color", scene()->backgroundColor());
+    }
+
     void on_update() override {
 //        std::cout << "Update frame: " << frame++ << std::endl;
     }

@@ -17,12 +17,23 @@ namespace Core {
         LOG_INFO("Closing Application");
     }
 
+    std::shared_ptr<Rendering::GraphicsScene> Application::scene() {
+        return m_pScene;
+    }
+
+    std::shared_ptr<Rendering::GuiManager> Application::gui() {
+        return m_pGuiManager;
+    }
+
+    void Application::setupUI() {
+    }
+
     int Application::start(unsigned int window_width, unsigned int window_height, const char *title) {
         m_pWindow = std::make_unique<Window>(title, window_width, window_height, m_executablePath);
         m_pWindow->setExecutablePath(m_executablePath);
         m_pScene = std::make_shared<Rendering::GraphicsScene>(m_executablePath);
         m_pGuiManager = std::make_shared<Rendering::GuiManager>(m_pWindow->getRawPtr(), window_width, window_height);
-        m_pGuiManager->addColorPicker4("Background Color", m_pScene->backgroundColor());
+        setupUI();
         m_dispatcher.addEventHandler<ResizeEvent>([](ResizeEvent& event) {
             LOG_INFO("[EVENT] Changed size to {0}x{1}", event.width, event.height);
         });

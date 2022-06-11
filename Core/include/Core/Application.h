@@ -21,6 +21,7 @@ namespace Core {
         Application& operator=(const Application&) = delete;
         Application& operator=(Application&&) = delete;
 
+        virtual void setupUI();
         virtual int start(unsigned int width, unsigned int height, const char* title);
         virtual void on_update() {}
 
@@ -28,6 +29,9 @@ namespace Core {
         virtual void onMousePress(MouseButtonPressEvent& event) {}
         virtual void onMouseRelease(MouseButtonReleaseEvent& event) {}
 
+    protected:
+        std::shared_ptr<Rendering::GraphicsScene> scene();
+        std::shared_ptr<Rendering::GuiManager> gui();
     private:
         std::unique_ptr<class Window> m_pWindow;
         EventDispatcher m_dispatcher;
