@@ -19,6 +19,10 @@ namespace Rendering {
         m_target = target;
     }
 
+    glm::vec3& Camera::position() {
+        return m_position;
+    }
+
     glm::mat4 Camera::getViewMatrix() const {
         return glm::lookAt(m_position, m_target, m_top);
     }

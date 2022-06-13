@@ -26,14 +26,29 @@ namespace Rendering {
         std::array<float, 4>& m_value;
     };
 
+    class InputNumber : public Widget {
+    public:
+        InputNumber(std::string label, float& value, float& step);
+        void render() override;
+    private:
+        std::string m_label;
+        float& m_value;
+        float& m_step;
+    };
+
     class GuiManager {
     public:
         GuiManager(GLFWwindow* window, unsigned int width, unsigned int height);
+
+        GuiManager(const GuiManager&) = delete;
+        GuiManager& operator=(const GuiManager&) = delete;
+
         bool isEnabled() const;
         void setEnabled(bool value);
         void render();
 
-        void addColorPicker4(std::string label, std::array<float, 4>& value);
+        void colorPicker4(std::string label, std::array<float, 4>& value);
+        void inputNumber(std::string label, float& value, float& step);
 
     private:
         bool m_isEnabled;

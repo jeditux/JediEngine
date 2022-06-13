@@ -12,7 +12,11 @@ public:
     }
 
     void setupUI() override {
-        gui()->addColorPicker4("Background Color", scene()->backgroundColor());
+        gui()->colorPicker4("Background Color", scene()->backgroundColor());
+        scene()->camera().position() = {0.0f, 0.0f, 10.0f};
+        gui()->inputNumber("Cam Position X", scene()->camera().position()[0], m_camPosStep);
+        gui()->inputNumber("Cam Position Y", scene()->camera().position()[1], m_camPosStep);
+        gui()->inputNumber("Cam Position Z", scene()->camera().position()[2], m_camPosStep);
     }
 
     void on_update() override {
@@ -29,6 +33,7 @@ public:
 
 private:
     int frame = 0;
+    float m_camPosStep = 0.1f;
 };
 
 int main(int argc, char** argv) {

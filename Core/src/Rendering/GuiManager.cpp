@@ -50,8 +50,12 @@ namespace Rendering {
         }
     }
 
-    void GuiManager::addColorPicker4(std::string label, std::array<float, 4> &value) {
+    void GuiManager::colorPicker4(std::string label, std::array<float, 4> &value) {
         m_widgets.emplace_back(std::make_shared<ColorPicker4>(std::move(label), value));
+    }
+
+    void GuiManager::inputNumber(std::string label, float& value, float& step) {
+        m_widgets.emplace_back(std::make_shared<InputNumber>(std::move(label), value, step));
     }
 
     ColorPicker4::ColorPicker4(std::string label, std::array<float, 4> &value)
@@ -60,5 +64,13 @@ namespace Rendering {
 
     void ColorPicker4::render() {
         ImGui::ColorPicker4(m_label.c_str(), m_value.data());
+    }
+
+    InputNumber::InputNumber(std::string label, float& value, float& step)
+        : m_label(std::move(label)), m_value(value), m_step(step) {
+    }
+
+    void InputNumber::render() {
+        ImGui::InputScalar(m_label.c_str(), ImGuiDataType_Float, &m_value, &m_step);
     }
 }

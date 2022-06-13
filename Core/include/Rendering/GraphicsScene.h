@@ -8,6 +8,7 @@
 //#include "ShaderProgram.h"
 //#include "Texture2D.h"
 #include "Core/ResourceManager.h"
+#include "Camera.h"
 
 
 namespace Rendering {
@@ -17,6 +18,7 @@ namespace Rendering {
         void render();
 
         std::array<float, 4>& backgroundColor();
+        Camera& camera();
 
     private:
         std::shared_ptr<Rendering::ShaderProgram> m_pShaderProgram;
@@ -29,5 +31,7 @@ namespace Rendering {
         std::array<float, 4> m_backgroundColor;
 
         std::string m_executablePath;
+
+        Camera m_camera;
     };
 }
