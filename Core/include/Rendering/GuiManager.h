@@ -26,6 +26,15 @@ namespace Rendering {
         std::array<float, 4>& m_value;
     };
 
+    class ColorPicker3 : public Widget {
+    public:
+        ColorPicker3(std::string label, std::array<float, 3>& value);
+        void render() override;
+    private:
+        std::string m_label;
+        std::array<float, 3>& m_value;
+    };
+
     class InputNumber : public Widget {
     public:
         InputNumber(std::string label, float& value, float& step);
@@ -48,6 +57,7 @@ namespace Rendering {
         void render();
 
         void colorPicker4(std::string label, std::array<float, 4>& value);
+        void colorPicker3(std::string label, std::array<float, 3>& value);
         void inputNumber(std::string label, float& value, float& step);
 
     private:

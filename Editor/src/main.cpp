@@ -12,11 +12,14 @@ public:
     }
 
     void setupUI() override {
+        gui()->setEnabled(true);
         gui()->colorPicker4("Background Color", scene()->backgroundColor());
-        scene()->camera().position() = {0.0f, 0.0f, 10.0f};
+        scene()->camera().position() = {2.0f, 2.0f, 8.0f};
         gui()->inputNumber("Cam Position X", scene()->camera().position()[0], m_camPosStep);
         gui()->inputNumber("Cam Position Y", scene()->camera().position()[1], m_camPosStep);
         gui()->inputNumber("Cam Position Z", scene()->camera().position()[2], m_camPosStep);
+        gui()->colorPicker3("Object Color", scene()->objectColor());
+        gui()->colorPicker3("Light Color", scene()->lightColor());
     }
 
     void on_update() override {

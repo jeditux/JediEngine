@@ -82,5 +82,9 @@ namespace Rendering {
     void ShaderProgram::setMatrix(const std::string& name, const GLfloat* value) const {
         glUniformMatrix4fv(glGetUniformLocation(m_Id, name.c_str()), 1, GL_FALSE, value);
     }
+
+    void ShaderProgram::setVec3(const std::string &name, float x, float y, float z) const {
+        glUniform3f(glGetUniformLocation(m_Id, name.c_str()), x, y, z);
+    }
 }
 

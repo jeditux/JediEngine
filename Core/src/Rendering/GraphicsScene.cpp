@@ -16,94 +16,74 @@
 namespace Rendering {
 
     float vertices[] = {
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-            0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-            0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+            -0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f,  0.5f, -0.5f,
+            0.5f,  0.5f, -0.5f,
+            -0.5f,  0.5f, -0.5f,
+            -0.5f, -0.5f, -0.5f,
 
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-            0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-            0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-            0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+            -0.5f, -0.5f,  0.5f,
+            0.5f, -0.5f,  0.5f,
+            0.5f,  0.5f,  0.5f,
+            0.5f,  0.5f,  0.5f,
+            -0.5f,  0.5f,  0.5f,
+            -0.5f, -0.5f,  0.5f,
 
-            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-            -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+            -0.5f,  0.5f,  0.5f,
+            -0.5f,  0.5f, -0.5f,
+            -0.5f, -0.5f, -0.5f,
+            -0.5f, -0.5f, -0.5f,
+            -0.5f, -0.5f,  0.5f,
+            -0.5f,  0.5f,  0.5f,
 
-            0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-            0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+            0.5f,  0.5f,  0.5f,
+            0.5f,  0.5f, -0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f,  0.5f,
+            0.5f,  0.5f,  0.5f,
 
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-            0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-            0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-            0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-            -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+            -0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f, -0.5f,
+            0.5f, -0.5f,  0.5f,
+            0.5f, -0.5f,  0.5f,
+            -0.5f, -0.5f,  0.5f,
+            -0.5f, -0.5f, -0.5f,
 
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-            0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-            0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-            -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-            -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+            -0.5f,  0.5f, -0.5f,
+            0.5f,  0.5f, -0.5f,
+            0.5f,  0.5f,  0.5f,
+            0.5f,  0.5f,  0.5f,
+            -0.5f,  0.5f,  0.5f,
+            -0.5f,  0.5f, -0.5f,
     };
 
-    glm::vec3 cubePositions[] = {
-            glm::vec3( 0.0f,  0.0f,  0.0f),
-            glm::vec3( 2.0f,  5.0f, -15.0f),
-            glm::vec3(-1.5f, -2.2f, -2.5f),
-            glm::vec3(-3.8f, -2.0f, -12.3f),
-            glm::vec3( 2.4f, -0.4f, -3.5f),
-            glm::vec3(-1.7f,  3.0f, -7.5f),
-            glm::vec3( 1.3f, -2.0f, -2.5f),
-            glm::vec3( 1.5f,  2.0f, -2.5f),
-            glm::vec3( 1.5f,  0.2f, -1.5f),
-            glm::vec3(-1.3f,  1.0f, -1.5f)
-    };
+    glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
     GraphicsScene::GraphicsScene(std::string executablePath) : m_executablePath(std::move(executablePath)) {
         m_pResourceManager = std::make_unique<Core::ResourceManager>(m_executablePath);
-        m_pShaderProgram = m_pResourceManager->loadShader("triangle", "triangle.vert", "triangle.frag");
-        m_pContainerTexture = m_pResourceManager->loadTexture("container", "container.jpg");
-        m_pSmileTexture = m_pResourceManager->loadTexture("smile", "awesomeface.png");
+        m_pLightShader = m_pResourceManager->loadShader("light", "light.vert", "light.frag");
+        m_pCubeShader = m_pResourceManager->loadShader("cube", "cube.vert", "cube.frag");
 
         unsigned int VBO;
-        glGenVertexArrays(1, &m_vao);
         glGenBuffers(1, &VBO);
-
-        glBindVertexArray(m_vao);
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+        glGenVertexArrays(1, &m_cubeVAO);
+        glBindVertexArray(m_cubeVAO);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
 
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*) (3 * sizeof(float)));
-        glEnableVertexAttribArray(1);
-        glBindVertexArray(0);
-
-        m_pTextureShader = m_pResourceManager->loadShader("texture", "texture.vert", "texture.frag");
-        m_pTextureShader->use();
-        glActiveTexture(GL_TEXTURE0);
-        m_pContainerTexture->bind();
-        m_pTextureShader->setInt("texture1", 0);
-
-        glActiveTexture(GL_TEXTURE1);
-        m_pSmileTexture->bind();
-        m_pTextureShader->setInt("texture2", 1);
+        glGenVertexArrays(1, &m_lightVAO);
+        glBindVertexArray(m_lightVAO);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
 
         m_backgroundColor = {0.0f, 0.0f, 0.0f, 0.0f};
+        m_objectColor = {1.0f, 0.5f, 0.31f};
+        m_lightColor = {1.0f, 1.0f, 1.0f};
 
         glEnable(GL_DEPTH_TEST);
     }
@@ -112,32 +92,46 @@ namespace Rendering {
         return m_camera;
     }
 
+    std::array<float, 3>& GraphicsScene::lightColor() {
+        return m_lightColor;
+    }
+
+    std::array<float, 3>& GraphicsScene::objectColor() {
+        return m_objectColor;
+    }
+
     void GraphicsScene::render() {
         glClearColor(m_backgroundColor[0], m_backgroundColor[1], m_backgroundColor[2], m_backgroundColor[3]);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        const float radius = 10.0f;
-        m_camera.lookAt(glm::vec3(0.0f, 0.0f, 0.0f));
-        m_pTextureShader->setMatrix("view", glm::value_ptr(m_camera.getViewMatrix()));
+        m_pCubeShader->use();
+        m_pCubeShader->setVec3("objectColor", m_objectColor[0], m_objectColor[1], m_objectColor[2]);
+        m_pCubeShader->setVec3("lightColor", m_lightColor[0], m_lightColor[1], m_lightColor[2]);
 
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 0.1f, 100.0f);
-        m_pTextureShader->setMatrix("projection", glm::value_ptr(projection));
+        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 1.0f, 100.0f);
+        glm::mat4 view = m_camera.getViewMatrix();
 
-        glActiveTexture(GL_TEXTURE0);
-        m_pContainerTexture->bind();
-        glActiveTexture(GL_TEXTURE1);
-        m_pSmileTexture->bind();
-        m_pTextureShader->use();
-        glBindVertexArray(m_vao);
-        for (unsigned int i = 0; i < 10; ++i) {
-            glm::mat4 model = glm::mat4(1.0f);
-            model = glm::translate(model, cubePositions[i]);
-            float angle = 20.0f * i;
-            model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-            m_pTextureShader->setMatrix("model", glm::value_ptr(model));
-            glDrawArrays(GL_TRIANGLES, 0, 36);
-        }
-        glBindVertexArray(0);
+        m_pCubeShader->setMatrix("projection", glm::value_ptr(projection));
+        m_pCubeShader->setMatrix("view", glm::value_ptr(view));
+
+        glm::mat4 model = glm::mat4(1.0f);
+        m_pCubeShader->setMatrix("model", glm::value_ptr(model));
+
+        glBindVertexArray(m_cubeVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
+        m_pLightShader->use();
+        m_pLightShader->setMatrix("projection", glm::value_ptr(projection));
+        m_pLightShader->setMatrix("view", glm::value_ptr(view));
+        m_pLightShader->setVec3("lightColor", m_lightColor[0], m_lightColor[1], m_lightColor[2]);
+
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, lightPos);
+        model = glm::scale(model, glm::vec3(0.2f));
+        m_pLightShader->setMatrix("model", glm::value_ptr(model));
+
+        glBindVertexArray(m_lightVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
     }
 
     std::array<float, 4>& GraphicsScene::backgroundColor() {

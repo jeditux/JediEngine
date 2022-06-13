@@ -17,6 +17,7 @@ namespace Rendering {
         ImGui_ImplOpenGL3_Init();
         m_width = width;
         m_height = height;
+        m_isEnabled = false;
     }
 
     bool GuiManager::isEnabled() const {
@@ -50,12 +51,24 @@ namespace Rendering {
         }
     }
 
-    void GuiManager::colorPicker4(std::string label, std::array<float, 4> &value) {
+    void GuiManager::colorPicker3(std::string label, std::array<float, 3>& value) {
+        m_widgets.emplace_back(std::make_shared<ColorPicker3>(std::move(label), value));
+    }
+
+    void GuiManager::colorPicker4(std::string label, std::array<float, 4>& value) {
         m_widgets.emplace_back(std::make_shared<ColorPicker4>(std::move(label), value));
     }
 
     void GuiManager::inputNumber(std::string label, float& value, float& step) {
         m_widgets.emplace_back(std::make_shared<InputNumber>(std::move(label), value, step));
+    }
+
+    ColorPicker3::ColorPicker3(std::string label, std::array<float, 3> &value)
+            : m_label(std::move(label)), m_value(value) {
+    }
+
+    void ColorPicker3::render() {
+        ImGui::ColorPicker3(m_label.c_str(), m_value.data());
     }
 
     ColorPicker4::ColorPicker4(std::string label, std::array<float, 4> &value)

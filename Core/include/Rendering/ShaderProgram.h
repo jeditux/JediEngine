@@ -19,6 +19,7 @@ namespace Rendering {
         void setInt(const std::string& name, int value) const;
         void setFloat(const std::string& name, float value) const;
         void setMatrix(const std::string& name, const GLfloat* value) const;
+        void setVec3(const std::string& name, float x, float y, float z) const;
 
     private:
         bool createShader(const std::string& source, const GLenum shaderType, GLuint& shaderId);
