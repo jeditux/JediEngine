@@ -96,6 +96,17 @@ namespace Rendering {
         int m_value;
     };
 
+    class Slider : public Widget {
+    public:
+        Slider(std::string label, float& value, float min, float max);
+        void render() override;
+    private:
+        std::string m_label;
+        float& m_value;
+        float m_min;
+        float m_max;
+    };
+
     class Text : public Widget {
     public:
         Text(std::string value);
@@ -119,6 +130,7 @@ namespace Rendering {
         static std::shared_ptr<ColorEdit3> colorEdit3(std::string label, std::array<float, 3>& value);
         static std::shared_ptr<InputNumber> inputNumber(std::string label, float& value, float& step);
         static std::shared_ptr<RadioButton> radioButton(std::string label, int& var, int value);
+        static std::shared_ptr<Slider> slider(std::string label, float& value, float min, float max);
         static std::shared_ptr<Text> text(std::string value);
         static std::shared_ptr<Spacing> spacing();
     };

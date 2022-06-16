@@ -141,6 +141,14 @@ namespace Rendering {
         ImGui::RadioButton(m_label.c_str(), &m_var, m_value);
     }
 
+    Slider::Slider(std::string label, float& value, float min, float max)
+        : m_label(std::move(label)), m_value(value), m_min(min), m_max(max){
+    }
+
+    void Slider::render() {
+        ImGui::SliderFloat(m_label.c_str(), &m_value, m_min, m_max);
+    }
+
     Text::Text(std::string value) : m_value(std::move(value)) {
     }
 
@@ -182,6 +190,10 @@ namespace Rendering {
 
     std::shared_ptr<RadioButton> WidgetFactory::radioButton(std::string label, int& var, int value) {
         return std::make_shared<RadioButton>(std::move(label), var, value);
+    }
+
+    std::shared_ptr<Slider> WidgetFactory::slider(std::string label, float &value, float min, float max) {
+        return std::make_shared<Slider>(std::move(label), value, min, max);
     }
 
     std::shared_ptr<Text> WidgetFactory::text(std::string value) {
