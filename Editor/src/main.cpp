@@ -14,13 +14,16 @@ public:
     void setupUI() override {
         gui()->setEnabled(true);
         scene()->camera().position() = {2.0f, 2.0f, 8.0f};
-          auto w = Rendering::WidgetFactory::window("Control Panel", 0, 0, 300, 800);
-          w->addChildWidget(Rendering::WidgetFactory::colorPicker4("Background Color", scene()->backgroundColor()))
-              .addChildWidget(Rendering::WidgetFactory::inputNumber("Cam Position X", scene()->camera().position()[0], m_camPosStep))
-              .addChildWidget(Rendering::WidgetFactory::inputNumber("Cam Position Y", scene()->camera().position()[1], m_camPosStep))
-              .addChildWidget(Rendering::WidgetFactory::inputNumber("Cam Position Z", scene()->camera().position()[2], m_camPosStep))
-              .addChildWidget(Rendering::WidgetFactory::colorPicker3("Object Color", scene()->objectColor()))
-              .addChildWidget(Rendering::WidgetFactory::colorPicker3("Light Color", scene()->lightColor()));
+        auto w = Rendering::WidgetFactory::window("Control Panel", 0, 0, 500, 400);
+        w->addChildWidget(Rendering::WidgetFactory::colorEdit4("Background Color", scene()->backgroundColor()))
+            .addChildWidget(Rendering::WidgetFactory::spacing())
+            .addChildWidget(Rendering::WidgetFactory::text("Cam Position"))
+            .addChildWidget(Rendering::WidgetFactory::inputNumber("X", scene()->camera().position()[0], m_camPosStep))
+            .addChildWidget(Rendering::WidgetFactory::inputNumber("Y", scene()->camera().position()[1], m_camPosStep))
+            .addChildWidget(Rendering::WidgetFactory::inputNumber("Z", scene()->camera().position()[2], m_camPosStep))
+            .addChildWidget(Rendering::WidgetFactory::spacing())
+            .addChildWidget(Rendering::WidgetFactory::colorEdit3("Object Color", scene()->objectColor()))
+            .addChildWidget(Rendering::WidgetFactory::colorEdit3("Light Color", scene()->lightColor()));
           gui()->addWidget(w);
     }
 

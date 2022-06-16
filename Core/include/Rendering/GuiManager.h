@@ -32,6 +32,14 @@ namespace Rendering {
         std::vector<std::shared_ptr<Widget>> m_widgets;
     };
 
+    class HorizontalLayout : public Widget {
+    public:
+        void render() override;
+        Widget& addChildWidget(const std::shared_ptr<Widget>& childWidget) override;
+    private:
+        std::vector<std::shared_ptr<Widget>> m_widgets;
+    };
+
     class ColorPicker4 : public Widget {
     public:
         ColorPicker4(std::string label, std::array<float, 4>& value);
@@ -44,6 +52,24 @@ namespace Rendering {
     class ColorPicker3 : public Widget {
     public:
         ColorPicker3(std::string label, std::array<float, 3>& value);
+        void render() override;
+    private:
+        std::string m_label;
+        std::array<float, 3>& m_value;
+    };
+
+    class ColorEdit4 : public Widget {
+    public:
+        ColorEdit4(std::string label, std::array<float, 4>& value);
+        void render() override;
+    private:
+        std::string m_label;
+        std::array<float, 4>& m_value;
+    };
+
+    class ColorEdit3 : public Widget {
+    public:
+        ColorEdit3(std::string label, std::array<float, 3>& value);
         void render() override;
     private:
         std::string m_label;
@@ -78,14 +104,23 @@ namespace Rendering {
         std::string m_value;
     };
 
+    class Spacing : public Widget {
+    public:
+        void render() override;
+    };
+
     class WidgetFactory {
     public:
         static std::shared_ptr<Window> window(std::string label, size_t xPos, size_t yPos, size_t width, size_t height);
+        static std::shared_ptr<HorizontalLayout> horizontalLayout();
         static std::shared_ptr<ColorPicker4> colorPicker4(std::string label, std::array<float, 4>& value);
         static std::shared_ptr<ColorPicker3> colorPicker3(std::string label, std::array<float, 3>& value);
+        static std::shared_ptr<ColorEdit4> colorEdit4(std::string label, std::array<float, 4>& value);
+        static std::shared_ptr<ColorEdit3> colorEdit3(std::string label, std::array<float, 3>& value);
         static std::shared_ptr<InputNumber> inputNumber(std::string label, float& value, float& step);
         static std::shared_ptr<RadioButton> radioButton(std::string label, int& var, int value);
         static std::shared_ptr<Text> text(std::string value);
+        static std::shared_ptr<Spacing> spacing();
     };
 
     class GuiManager {

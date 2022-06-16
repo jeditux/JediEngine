@@ -32,14 +32,14 @@ namespace Rendering {
     void GuiManager::render() {
         if (m_isEnabled) {
             ImGuiIO &io = ImGui::GetIO();
-            io.DisplaySize.x = m_width;
-            io.DisplaySize.y = m_height;
+            io.DisplaySize.x = static_cast<float>(m_width);
+            io.DisplaySize.y = static_cast<float>(m_height);
 
             ImGui_ImplOpenGL3_NewFrame();
             ImGui_ImplGlfw_NewFrame();
             ImGui::NewFrame();
 
-            ImGui::ShowDemoWindow();
+//            ImGui::ShowDemoWindow();
 
             for (const auto& w : m_widgets) {
                 w->render();
@@ -61,8 +61,8 @@ namespace Rendering {
 
     void Window::render() {
         const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
-        ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + m_xPos, main_viewport->WorkPos.y + m_yPos));
-        ImGui::SetNextWindowSize(ImVec2(m_width, m_height), ImGuiCond_FirstUseEver);
+        ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + static_cast<float>(m_xPos), main_viewport->WorkPos.y + static_cast<float>(m_yPos)));
+        ImGui::SetNextWindowSize(ImVec2(static_cast<float>(m_width), static_cast<float>(m_height)), ImGuiCond_FirstUseEver);
         ImGui::Begin(m_label.c_str());
         for (const auto& w : m_widgets) {
             w->render();
@@ -75,6 +75,20 @@ namespace Rendering {
     }
 
     Widget& Window::addChildWidget(const std::shared_ptr<Widget>& childWidget) {
+        m_widgets.emplace_back(childWidget);
+        return *this;
+    }
+
+    void HorizontalLayout::render() {
+        ImGui::BeginGroup();
+        for (const auto& w : m_widgets) {
+            w->render();
+            ImGui::SameLine();
+        }
+        ImGui::EndGroup();
+    }
+
+    Widget& HorizontalLayout::addChildWidget(const std::shared_ptr<Widget>& childWidget) {
         m_widgets.emplace_back(childWidget);
         return *this;
     }
@@ -93,6 +107,22 @@ namespace Rendering {
 
     void ColorPicker4::render() {
         ImGui::ColorPicker4(m_label.c_str(), m_value.data());
+    }
+
+    ColorEdit3::ColorEdit3(std::string label, std::array<float, 3> &value)
+            : m_label(std::move(label)), m_value(value) {
+    }
+
+    void ColorEdit3::render() {
+        ImGui::ColorEdit3(m_label.c_str(), m_value.data());
+    }
+
+    ColorEdit4::ColorEdit4(std::string label, std::array<float, 4> &value)
+            : m_label(std::move(label)), m_value(value) {
+    }
+
+    void ColorEdit4::render() {
+        ImGui::ColorEdit4(m_label.c_str(), m_value.data());
     }
 
     InputNumber::InputNumber(std::string label, float& value, float& step)
@@ -118,8 +148,16 @@ namespace Rendering {
         ImGui::Text(m_value.c_str());
     }
 
+    void Spacing::render() {
+        ImGui::Spacing();
+    }
+
     std::shared_ptr<Window> WidgetFactory::window(std::string label, size_t xPos, size_t yPos, size_t width, size_t height) {
         return std::make_shared<Window>(std::move(label), xPos, yPos, width, height);
+    }
+
+    std::shared_ptr<HorizontalLayout> WidgetFactory::horizontalLayout() {
+        return std::make_shared<HorizontalLayout>();
     }
 
     std::shared_ptr<ColorPicker4> WidgetFactory::colorPicker4(std::string label, std::array<float, 4>& value) {
@@ -128,6 +166,14 @@ namespace Rendering {
 
     std::shared_ptr<ColorPicker3> WidgetFactory::colorPicker3(std::string label, std::array<float, 3>& value) {
         return std::make_shared<ColorPicker3>(std::move(label), value);
+    }
+
+    std::shared_ptr<ColorEdit4> WidgetFactory::colorEdit4(std::string label, std::array<float, 4>& value) {
+        return std::make_shared<ColorEdit4>(std::move(label), value);
+    }
+
+    std::shared_ptr<ColorEdit3> WidgetFactory::colorEdit3(std::string label, std::array<float, 3>& value) {
+        return std::make_shared<ColorEdit3>(std::move(label), value);
     }
 
     std::shared_ptr<InputNumber> WidgetFactory::inputNumber(std::string label, float& value, float& step) {
@@ -140,5 +186,9 @@ namespace Rendering {
 
     std::shared_ptr<Text> WidgetFactory::text(std::string value) {
         return std::make_shared<Text>(std::move(value));
+    }
+
+    std::shared_ptr<Spacing> WidgetFactory::spacing() {
+        return std::make_shared<Spacing>();
     }
 }
