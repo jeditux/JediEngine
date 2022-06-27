@@ -5,13 +5,16 @@
 #pragma once
 
 #include <memory>
-//#include "ShaderProgram.h"
-//#include "Texture2D.h"
 #include "Core/ResourceManager.h"
 #include "Camera.h"
+#include "GameObject.h"
 
 
 namespace Rendering {
+    class ShaderProgram;
+    class Texture2D;
+    class Cube;
+
     class GraphicsScene {
     public:
         GraphicsScene(std::string executablePath);
@@ -28,7 +31,6 @@ namespace Rendering {
         std::shared_ptr<Rendering::ShaderProgram> m_pTextureShader;
         std::shared_ptr<Rendering::Texture2D> m_pContainerTexture;
         std::shared_ptr<Rendering::Texture2D> m_pSmileTexture;
-        unsigned int m_cubeVAO, m_lightVAO;
         std::unique_ptr<Core::ResourceManager> m_pResourceManager;
         std::shared_ptr<Rendering::ShaderProgram> m_pLightShader;
         std::shared_ptr<Rendering::ShaderProgram> m_pCubeShader;
@@ -40,5 +42,7 @@ namespace Rendering {
         std::string m_executablePath;
 
         Camera m_camera;
+        std::shared_ptr<LightSource> m_light;
+        std::shared_ptr<Cube> m_cube;
     };
 }
