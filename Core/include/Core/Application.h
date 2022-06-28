@@ -28,6 +28,8 @@ namespace Core {
         virtual void onMouseMove(MouseMoveEvent& event) {}
         virtual void onMousePress(MouseButtonPressEvent& event) {}
         virtual void onMouseRelease(MouseButtonReleaseEvent& event) {}
+        virtual void onKeyPress(KeyPressEvent& event) {}
+        virtual void onKeyRelease(KeyReleaseEvent& event) {}
 
     protected:
         std::shared_ptr<Rendering::GraphicsScene> scene();

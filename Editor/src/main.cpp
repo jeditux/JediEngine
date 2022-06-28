@@ -39,6 +39,10 @@ public:
         std::cout << "Mouse pressed " << event.x << "x" << event.y << std::endl;
     }
 
+    void onKeyPress(Core::KeyPressEvent& event) override {
+        std::cout << "Key pressed " << static_cast<int>(event.key) << std::endl;
+    }
+
 private:
     int frame = 0;
     float m_camPosStep = 0.1f;

@@ -15,6 +15,8 @@ struct GLFWwindow;
 namespace Core {
     class Window {
     public:
+        const static std::unordered_map<size_t, Key> KEY_MAPPINGS;
+
         using EventCallbackFn = std::function<void(BaseEvent&)>;
         using RenderFn = std::function<void()>;
 

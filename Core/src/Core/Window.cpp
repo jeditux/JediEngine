@@ -12,6 +12,12 @@ namespace Core {
 
     static bool s_GLFW_initialized = false;
 
+    const std::unordered_map<size_t, Key> Window::KEY_MAPPINGS = {{GLFW_KEY_UP, Key::UP},
+                                                                  {GLFW_KEY_DOWN, Key::DOWN},
+                                                                  {GLFW_KEY_LEFT, Key::LEFT},
+                                                                  {GLFW_KEY_RIGHT, Key::RIGHT}
+    };
+
     Window::Window(std::string title, const unsigned int width, const unsigned int height, std::string executablePath)
     : m_data({std::move(title), width, height})
     , m_executablePath(std::move(executablePath)) {
@@ -82,6 +88,17 @@ namespace Core {
                 data.eventCallbackFn(event);
             } else if (action == GLFW_RELEASE) {
                 MouseButtonReleaseEvent event(static_cast<unsigned int>(xPos), static_cast<unsigned int>(yPos), mouseButton);
+                data.eventCallbackFn(event);
+            }
+        });
+
+        glfwSetKeyCallback(m_pWindow, [](GLFWwindow* pWindow, int key, int scancode, int action, int mods) {
+            WindowData& data = *static_cast<WindowData*>(glfwGetWindowUserPointer(pWindow));
+            if (action == GLFW_PRESS) {
+                KeyPressEvent event(KEY_MAPPINGS.count(key) > 0 ? KEY_MAPPINGS.at(key) : Key::UNSUPPORTED);
+                data.eventCallbackFn(event);
+            } else if (action == GLFW_RELEASE) {
+                KeyReleaseEvent event(KEY_MAPPINGS.count(key) > 0 ? KEY_MAPPINGS.at(key)  : Key::UNSUPPORTED);
                 data.eventCallbackFn(event);
             }
         });

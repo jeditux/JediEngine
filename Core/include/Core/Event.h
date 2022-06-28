@@ -12,12 +12,22 @@ namespace Core {
         mouseMove,
         mouseButtonClick,
         mouseButtonRelease,
+        KEY_PRESS,
+        KEY_RELEASE,
         eventCount
     };
 
     enum class MouseButton {
         left,
         right
+    };
+
+    enum class Key {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        UNSUPPORTED
     };
 
     struct BaseEvent {
@@ -95,6 +105,30 @@ namespace Core {
         MouseButton button;
 
         const static EventType type = EventType::mouseButtonRelease;
+    };
+
+    struct KeyPressEvent : public BaseEvent {
+        KeyPressEvent(Key k) : BaseEvent(), key(k) {
+        }
+
+        EventType getType() override {
+            return EventType::KEY_PRESS;
+        }
+
+        Key key;
+        const static EventType type = EventType::KEY_PRESS;
+    };
+
+    struct KeyReleaseEvent : public BaseEvent {
+        KeyReleaseEvent(Key k) : BaseEvent(), key(k) {
+        }
+
+        EventType getType() override {
+            return EventType::KEY_RELEASE;
+        }
+
+        Key key;
+        const static EventType type = EventType::KEY_RELEASE;
     };
 
     class EventDispatcher {

@@ -44,6 +44,12 @@ namespace Core {
         m_dispatcher.addEventHandler<MouseButtonPressEvent>([this](MouseButtonPressEvent& event) {
             onMousePress(event);
         });
+        m_dispatcher.addEventHandler<KeyPressEvent>([this](KeyPressEvent& event) {
+            onKeyPress(event);
+        });
+        m_dispatcher.addEventHandler<KeyReleaseEvent>([this](KeyReleaseEvent& event) {
+            onKeyRelease(event);
+        });
         m_pWindow->setEventCallback([&](BaseEvent& event) {
             m_dispatcher.dispatch(event);
         });
