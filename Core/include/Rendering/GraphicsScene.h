@@ -17,7 +17,7 @@ namespace Rendering {
 
     class GraphicsScene {
     public:
-        GraphicsScene(std::string executablePath);
+        GraphicsScene(std::string executablePath, std::pair<size_t, size_t> windowSize);
         void render();
 
         std::array<float, 4>& backgroundColor();

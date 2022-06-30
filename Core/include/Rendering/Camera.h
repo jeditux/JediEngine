@@ -11,12 +11,14 @@
 namespace Rendering {
     class Camera {
     public:
-        Camera(glm::vec3 position = {0.0f, 0.0f, 0.0f }, glm::vec3 direction = {0.0f, 0.0f, 0.0f}, glm::vec3 top = {0.0f, 1.0f, 0.0f});
+        Camera(std::pair<size_t, size_t> viewportSize, glm::vec3 position = {0.0f, 0.0f, 0.0f }, glm::vec3 direction = {2.0f, 1.0f, 5.0f}, glm::vec3 top = {0.0f, 1.0f, 0.0f});
         void moveTo(glm::vec3 position);
         void lookAt(glm::vec3 target);
         glm::vec3& position();
         glm::mat4 getViewMatrix() const;
+        glm::mat4 getProjectionMatrix() const;
     private:
+        std::pair<size_t, size_t> m_viewportSize;
         glm::vec3 m_position;
         glm::vec3 m_target;
         glm::vec3 m_top;

@@ -17,7 +17,8 @@ namespace Rendering {
 
     glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
-    GraphicsScene::GraphicsScene(std::string executablePath) : m_executablePath(std::move(executablePath)) {
+    GraphicsScene::GraphicsScene(std::string executablePath, std::pair<size_t, size_t> windowSize)
+        : m_executablePath(std::move(executablePath)), m_camera(windowSize) {
         m_pResourceManager = std::make_unique<Core::ResourceManager>(m_executablePath);
         m_pLightShader = m_pResourceManager->loadShader("light", "light.vert", "light.frag");
         m_pCubeShader = m_pResourceManager->loadShader("cube", "cube.vert", "cube.frag");
@@ -54,7 +55,7 @@ namespace Rendering {
         m_cube->shader()->setVec3("lightPos", lightPos[0], lightPos[1], lightPos[2]);
         m_cube->shader()->setVec3("viewPos", m_camera.position()[0], m_camera.position()[1], m_camera.position()[2]);
 
-        glm::mat4 projection = glm::perspective(glm::radians(45.0f), 1024.0f / 768.0f, 1.0f, 100.0f);
+        glm::mat4 projection = m_camera.getProjectionMatrix();
         glm::mat4 view = m_camera.getViewMatrix();
         m_cube->shader()->setMatrix("projection", glm::value_ptr(projection));
         m_cube->shader()->setMatrix("view", glm::value_ptr(view));
