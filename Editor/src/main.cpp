@@ -33,6 +33,11 @@ public:
 
     void onMouseMove(Core::MouseMoveEvent& event) override {
 //        std::cout << "Mouse moved to " << event.x << "x" << event.y << std::endl;
+        int xOffset = event.x - m_lastPosX;
+        int yOffset = event.y - m_lastPosY;
+        m_lastPosX = event.x;
+        m_lastPosY = event.y;
+        scene()->camera().rotate(0.05f * xOffset, 0.05f * yOffset);
     }
 
     void onMousePress(Core::MouseButtonPressEvent& event) override {
@@ -40,12 +45,30 @@ public:
     }
 
     void onKeyPress(Core::KeyPressEvent& event) override {
-        std::cout << "Key pressed " << static_cast<int>(event.key) << std::endl;
+        switch (event.key) {
+            case Core::Key::UP:
+                scene()->camera().moveFront(0.1f);
+                break;
+            case Core::Key::DOWN:
+                scene()->camera().moveBack(0.1f);
+                break;
+            case Core::Key::LEFT:
+                scene()->camera().moveLeft(0.1f);
+                break;
+            case Core::Key::RIGHT:
+                scene()->camera().moveRight(0.1f);
+                break;
+            case Core::Key::UNSUPPORTED:
+                std::cout << "Key pressed " << static_cast<int>(event.key) << std::endl;
+                break;
+        }
     }
 
 private:
     int frame = 0;
     float m_camPosStep = 0.1f;
+    int m_lastPosX = 0;
+    int m_lastPosY = 0;
 };
 
 int main(int argc, char** argv) {
