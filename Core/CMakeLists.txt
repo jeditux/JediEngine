@@ -13,6 +13,7 @@ set(ENGINE_PUBLIC_INCLUDES
         include/Rendering/GuiManager.h
         include/Rendering/Camera.h
         include/Rendering/GameObject.h
+        include/Rendering/Sprite.h
 )
 
 set(ENGINE_PRIVATE_INCLUDES
@@ -29,6 +30,7 @@ set(ENGINE_PRIVATE_SOURCES
         src/Rendering/GuiManager.cpp
         src/Rendering/Camera.cpp
         src/Rendering/GameObject.cpp
+        src/Rendering/Sprite.cpp
 )
 
 add_library(${ENGINE_PROJECT_NAME} STATIC ${ENGINE_PUBLIC_INCLUDES} ${ENGINE_PRIVATE_INCLUDES} ${ENGINE_PRIVATE_SOURCES})

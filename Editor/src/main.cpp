@@ -12,8 +12,8 @@ public:
     }
 
     void setupUI() override {
-        gui()->setEnabled(true);
-        scene()->camera().position() = {2.0f, 2.0f, 8.0f};
+//        gui()->setEnabled(true);
+//        scene()->camera().position() = {2.0f, 2.0f, 8.0f};
         auto w = Rendering::WidgetFactory::window("Control Panel", 0, 0, 500, 400);
         w->addChildWidget(Rendering::WidgetFactory::colorEdit4("Background Color", scene()->backgroundColor()))
             .addChildWidget(Rendering::WidgetFactory::spacing())
@@ -37,7 +37,7 @@ public:
         int yOffset = event.y - m_lastPosY;
         m_lastPosX = event.x;
         m_lastPosY = event.y;
-        scene()->camera().rotate(0.05f * xOffset, 0.05f * yOffset);
+//        scene()->camera().rotate(0.05f * xOffset, 0.05f * yOffset);
     }
 
     void onMousePress(Core::MouseButtonPressEvent& event) override {
@@ -45,23 +45,23 @@ public:
     }
 
     void onKeyPress(Core::KeyPressEvent& event) override {
-        switch (event.key) {
-            case Core::Key::UP:
-                scene()->camera().moveFront(0.1f);
-                break;
-            case Core::Key::DOWN:
-                scene()->camera().moveBack(0.1f);
-                break;
-            case Core::Key::LEFT:
-                scene()->camera().moveLeft(0.1f);
-                break;
-            case Core::Key::RIGHT:
-                scene()->camera().moveRight(0.1f);
-                break;
-            case Core::Key::UNSUPPORTED:
-                std::cout << "Key pressed " << static_cast<int>(event.key) << std::endl;
-                break;
-        }
+//        switch (event.key) {
+//            case Core::Key::UP:
+//                scene()->camera().moveFront(0.1f);
+//                break;
+//            case Core::Key::DOWN:
+//                scene()->camera().moveBack(0.1f);
+//                break;
+//            case Core::Key::LEFT:
+//                scene()->camera().moveLeft(0.1f);
+//                break;
+//            case Core::Key::RIGHT:
+//                scene()->camera().moveRight(0.1f);
+//                break;
+//            case Core::Key::UNSUPPORTED:
+//                std::cout << "Key pressed " << static_cast<int>(event.key) << std::endl;
+//                break;
+//        }
     }
 
 private:

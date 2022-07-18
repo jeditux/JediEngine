@@ -5,9 +5,12 @@
 #pragma once
 
 #include <memory>
+#include <array>
+#include <vector>
 #include "Core/ResourceManager.h"
 #include "Camera.h"
 #include "GameObject.h"
+#include "Sprite.h"
 
 
 namespace Rendering {
@@ -44,5 +47,9 @@ namespace Rendering {
         Camera m_camera;
         std::shared_ptr<LightSource> m_light;
         std::shared_ptr<Cube> m_cube;
+        std::pair<size_t, size_t> m_windowSize;
+
+        std::shared_ptr<ShaderProgram> m_pSpriteShader;
+        std::shared_ptr<Rendering::Sprite> m_smilingSprite;
     };
 }
