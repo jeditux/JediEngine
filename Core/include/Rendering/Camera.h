@@ -11,6 +11,11 @@
 namespace Rendering {
     const glm::vec3 WORLD_TOP = {0.0f, 1.0f, 0.0f};
 
+    enum class ProjectionMode {
+        PERSPECTIVE,
+        ORTHO
+    };
+
     class Camera {
     public:
         Camera(std::pair<size_t, size_t> viewportSize, glm::vec3 position = {0.0f, 0.0f, 0.0f }, glm::vec3 direction = {2.0f, 1.0f, 5.0f}, glm::vec3 up = {0.0f, 1.0f, 0.0f});
@@ -23,6 +28,7 @@ namespace Rendering {
         void moveLeft(float distance);
         void moveRight(float distance);
         void rotate(float yaw, float pitch);
+        void setProjectionMode(ProjectionMode projectionMode);
     private:
         std::pair<size_t, size_t> m_viewportSize;
         glm::vec3 m_position;
@@ -33,6 +39,8 @@ namespace Rendering {
         glm::vec3 m_front;
         glm::vec3 m_right;
         glm::vec3 m_up;
+
+        ProjectionMode m_projectionMode;
 
         void updateCameraVectors();
     };

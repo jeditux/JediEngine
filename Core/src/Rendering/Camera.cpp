@@ -9,7 +9,8 @@ namespace Rendering {
         : m_viewportSize(std::move(viewportSize))
         , m_position(position)
         , m_yaw(-90.0f)
-        , m_pitch(0.0f) {
+        , m_pitch(0.0f)
+        , m_projectionMode(ProjectionMode::PERSPECTIVE) {
         updateCameraVectors();
     }
 
@@ -27,7 +28,9 @@ namespace Rendering {
     }
 
     glm::mat4 Camera::getProjectionMatrix() const {
-        return glm::perspective(glm::radians(45.0f), static_cast<float>(m_viewportSize.first) / m_viewportSize.second, 1.0f, 100.0f);
+        return m_projectionMode == ProjectionMode::PERSPECTIVE
+            ? glm::perspective(glm::radians(45.0f), static_cast<float>(m_viewportSize.first) / m_viewportSize.second, 1.0f, 100.0f)
+            : glm::ortho(0.f, static_cast<float>(m_viewportSize.first), 0.f, static_cast<float>(m_viewportSize.second), -100.f, 100.f);
     }
 
     void Camera::moveFront(float distance) {
@@ -50,6 +53,10 @@ namespace Rendering {
         m_yaw += yaw;
         m_pitch += pitch;
         updateCameraVectors();
+    }
+
+    void Camera::setProjectionMode(ProjectionMode projectionMode) {
+        m_projectionMode = projectionMode;
     }
 
     void Camera::updateCameraVectors() {

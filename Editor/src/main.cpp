@@ -14,6 +14,7 @@ public:
     void setupUI() override {
 //        gui()->setEnabled(true);
 //        scene()->camera().position() = {2.0f, 2.0f, 8.0f};
+        scene()->camera().setProjectionMode(Rendering::ProjectionMode::ORTHO);
         auto w = Rendering::WidgetFactory::window("Control Panel", 0, 0, 500, 400);
         w->addChildWidget(Rendering::WidgetFactory::colorEdit4("Background Color", scene()->backgroundColor()))
             .addChildWidget(Rendering::WidgetFactory::spacing())

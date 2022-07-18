@@ -34,9 +34,7 @@ namespace Rendering {
         m_pSmileTexture = m_pResourceManager->loadTexture("smile", "awesomeface.png");
         m_smilingSprite = std::make_shared<Sprite>(m_pSpriteShader, m_pSmileTexture, glm::vec2(300.f, 200.f), glm::vec2(100.f), 180.f);
 
-        glm::mat4 projection = glm::ortho(0.f, 1024.f, 0.f, 768.f, -100.f, 100.f);
         m_pSpriteShader->use();
-        m_pSpriteShader->setMatrix("projection", glm::value_ptr(projection));
         m_pSpriteShader->setInt("texture1", 0);
 
         glEnable(GL_DEPTH_TEST);
@@ -88,6 +86,9 @@ namespace Rendering {
 //        m_pSpriteShader->use();
 //        m_pSpriteShader->setMatrix("projection", glm::value_ptr(projection));
 //        m_pSpriteShader->setInt("texture1", 0);
+        glm::mat4 projection = m_camera.getProjectionMatrix();
+        m_pSpriteShader->use();
+        m_pSpriteShader->setMatrix("projection", glm::value_ptr(projection));
         m_smilingSprite->render();
     }
 
