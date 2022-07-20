@@ -22,6 +22,7 @@ namespace Core {
         Application& operator=(Application&&) = delete;
 
         virtual void setupUI();
+        virtual void setupScene();
         virtual int start(unsigned int width, unsigned int height, const char* title);
         virtual void on_update() {}
 
@@ -32,12 +33,14 @@ namespace Core {
         virtual void onKeyRelease(KeyReleaseEvent& event) {}
 
     protected:
+        std::shared_ptr<ResourceManager> resourceManager();
         std::shared_ptr<Rendering::GraphicsScene> scene();
         std::shared_ptr<Rendering::GuiManager> gui();
     private:
+        std::string m_executablePath;
         std::unique_ptr<class Window> m_pWindow;
         EventDispatcher m_dispatcher;
-        std::string m_executablePath;
+        std::shared_ptr<ResourceManager> m_pResourceManager;
         std::shared_ptr<Rendering::GraphicsScene> m_pScene;
         std::shared_ptr<Rendering::GuiManager> m_pGuiManager;
     };

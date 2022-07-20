@@ -12,6 +12,10 @@ namespace Rendering {
     public:
         ShaderProgram(const std::string& vertexShader, const std::string& fragmentShader);
         ~ShaderProgram();
+
+        ShaderProgram(const ShaderProgram&) = delete;
+        ShaderProgram& operator=(const ShaderProgram&) = delete;
+
         void use() const;
         bool isCompiled() const {return m_isCompiled; }
         void setUniform4f(const std::string& name, GLfloat f1, GLfloat f2, GLfloat f3, GLfloat f4) const;

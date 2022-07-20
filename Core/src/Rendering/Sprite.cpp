@@ -63,6 +63,10 @@ namespace Rendering {
         m_rotation = rotation;
     }
 
+    std::shared_ptr<ShaderProgram>& Sprite::shader() {
+        return m_pShader;
+    }
+
     void Sprite::render() const {
         m_pShader->use();
 
